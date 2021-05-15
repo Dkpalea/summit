@@ -10,8 +10,16 @@ The energyDeclineOfTurn is initially 0.
 The healthDeclineOfTurn is initially 0.
 The goingByNameWasCanceledDuringTurn is initially false.
 The additionalChanceOfSurvivingObstacle is initially 0.
+The playerWarnedAboutLowEnergy is initially false.
+The playerWarnedAboutLowHealth is initially false.
+
+
+
 
 [----- object types -----]
+
+[the player]
+The carrying capacity of the player is 1.
 
 [thing]
 A thing has a number called load.
@@ -32,9 +40,9 @@ The max energy is always 100.
 The energy of the player is 100.
 
 A person has a number called max load.
-A person has a number called load.
+A person has a number called current load.
 The max load of the player is 100.
-The load of the player is 0.
+The current load of the player is 0.
 
 [The description of the player is "Energy: [the energy of the player]%  Health: [the health of the player]%".]
 [ignition]
@@ -73,7 +81,7 @@ The replenishment energy of an orange is 6.
 
 [cliff bar]
 A cliff bar is a kind of food.
-The load of a cliff bar is 2.
+The load of a cliff bar is 6.
 The replenishment energy of a cliff bar is 15.
 
 [a small pack of jerky]
@@ -89,7 +97,7 @@ The remaining sips of a water bottle is usually 7.
 A water bottle has a number called replenishment energy.
 The replenishment energy of a water bottle is 10.
 Understand "water" as the water bottle.
-The description of a water bottle is "Carrying this insulated bottle requires [the load of the water bottle]% of your load. Each sip replenishes [the replenishment energy of the water bottle]% of your energy and there are [the remaining sips of the water bottle] sips remaining.".
+The description of a water bottle is "Each sip replenishes [the replenishment energy of the water bottle]% of your energy and there are [the remaining sips of the water bottle] sips remaining. Carrying this insulated bottle requires [the load of the water bottle]% of your load.".
 
 [ice axe]
 An ice axe is a thing.
@@ -98,7 +106,7 @@ Understand "axe" as the ice axe.
 
 [tent]
 A tent is an enterable container.
-The load of a tent is 30.
+The load of a tent is 20.
 A tent has a number called the replenishment energy.
 The replenishment energy of a tent is usually 20.
 
@@ -140,13 +148,23 @@ After printing the name of a chest (called the item) while listing contents of a
 		say " (on which [is-are a list of things on the second item])";
 		omit contents in listing.
 
+[backpack]
+A backpack is a thing.
+A backpack is wearable.
+Understand "bag" as the backpack.
+The description of a backpack is "A large, but lightweight and well-supported backpack.".
+
+
+
 
 [----- object instances -----]
 
 [basecamp chest]
 There is a chest called 'Basecamp Chest'.
 'Basecamp Chest' is in Basecamp.
-'Basecamp Chest' contains a tent, an orange, a water bottle, and an ice axe.
+'Basecamp Chest' contains a tent, an orange, a water bottle, an ice axe, and a backpack.
+The backpack is a player's holdall.
+
 
 
 [----- actions -----]
@@ -159,11 +177,58 @@ Check diagnosing:
 Carry out diagnosing:
 	say "YourA health is at [health]%."
 	
-[drinking/sipping]
-[Carry out drink/sip water bottle:
-	energize the player by the replenishment energy of the noun.
-After entering a tent:
-	say "Aaahhhh! Refreshing.";]
+[drinking]
+Instead of drinking the water bottle:
+	sip the noun.
+
+[sipping]
+To sip (the water bottle - a water bottle):
+	If the remaining sips of the water bottle is greater than 0:
+		decrease the remaining sips of the water bottle by 1;
+		energize the player by the replenishment energy of the water bottle;
+		say "Aaaaahh! Very refreshing.";
+	else:
+		say "Ooops... you're all out of slush.".
+
+[taking]
+Instead of taking:
+	if the player is wearing a backpack or the noun is a backpack:
+		if the current load of the player plus the load of the noun is greater than the max load of the player:
+			say "You're at max capacity. At this elevation you're max load is [the max load of the player]% and you're currently holding [the current load of the player]%, but this item requires an additional [the load of the noun]%.";
+		else:
+			increase the current load of the player by the load of the noun;
+			continue the action;
+	else if the player is carrying a backpack:
+		say "You must be *wearing* a backpack to hold items.";
+	else:
+		say "You must be wearing a backpack to hold items.".
+		
+[dropping]
+Instead of dropping:
+	decrease the current load of the player by the load of the noun;
+	continue the action.
+	
+[Instead of taking:
+	[if the noun is a backpack:
+		if the player is wearing a backpack:
+			say "You've already got that on silly.";
+		else:
+			say "You're holding the backpack but not yet wearing it.";]
+	if the player is not wearing a backpack or the player is not carrying a backpack, and the noun is not a backpack:
+		say "Try taking things once you're wearing a backpack. You can hold a lot more that way, but remember, the higher up you go the less you'll be able to carry.";
+	else:
+		continue the action.]
+		
+[wearing]
+[Instead of wearing:
+	if the noun is a backpack:
+		if the player is wearing a backpack:
+			say "You've already got that on silly.";
+		else:
+			now the player is wearing the noun;
+			say "You're now wearing a backpack.";
+	else:
+		continue the action.]
 
 [entering]
 Carry out entering a tent:
@@ -174,7 +239,7 @@ After entering a tent:
 [healing]
 To heal (person - a person) by (number - a number):
 	if the health of the person plus the number is greater than 100:
-		now the energy of the person is 100;
+		now the energy of the person is 101;
 	else:
 		increase the health of the person by the number.
 
@@ -188,7 +253,7 @@ To hurt (person - a person) by (number - a number):
 [energizing]
 To energize (person - a person) by (number - a number):
 	if the energy of the person plus the number is greater than 100:
-		now the energy of the person is 100;
+		now the energy of the person is 101;
 	else:
 		increase the energy of the person by the number.
 		
@@ -212,7 +277,7 @@ To send (person - a person) to (place - a room):
 			else:
 				do nothing instead;
 		else:
-			say "You should at least bring food, water, shelter, and an ice axe.";
+			say "Before heading up to Camp1, you should at least bring food, water, shelter, and an ice axe.";
 	[basecamp <- Camp1]
 	else if the player is in Camp1 and the place is Basecamp:
 		say "Are you sure you want to go to [the place]? This hike will require 15 energy.";
@@ -314,6 +379,10 @@ Carry out eating something:
 After eating something:
 	say "Your energy has increased to [energy of the player]%.".
 
+
+
+
+
 [----- events -----]
 Every turn:
 	if the goingByNameWasCanceledDuringTurn is true:
@@ -341,14 +410,30 @@ Every turn:
 		if the player is in Summit:
 			increase energyDeclineOfTurn by the energyDecline of Summit;
 			increase healthDeclineOfTurn by the healthDeclineWithNoEnergy of Summit;
-		[no negative energy]
 		tire the player by energyDeclineOfTurn;
+		[if no energy, hurt the player]
 		if the energy of the player is 0:
 			[end condition]
 			hurt the player by healthDeclineOfTurn;
-			if the health of the player is less than 1:
+			if the health of the player is 0:
 				end the story saying "You have died :(";
-		say "Load: [the load of the player]%  Energy: [the energy of the player]%  Health: [the health of the player]%".
+		if the player is wearing a backpack or the player is carrying a backpack:
+			say "Current Load: [the current load of the player]%    Max Load: [the max load of the player]%            Energy: [the energy of the player]%    Health: [the health of the player]%";
+		else:
+			say "Current Load: 0%    Max Load: 0%            Energy: [the energy of the player]%    Health: [the health of the player]%";
+		if the energy of the player is less than 21 and playerWarnedAboutLowEnergy is false:
+			say "
+			
+			Your energy is low! You need food, water, or rest.";
+			now playerWarnedAboutLowEnergy is true;
+		if the health of the player is less than 21 and playerWarnedAboutLowHealth is false:
+			say "
+			
+			Your health is dangerously low! You need energy to stop losing health, or a first aid kit to heal up.";
+			now playerWarnedAboutLowHealth is true.
+
+
+
 
 
 [----- locations -----]
@@ -358,7 +443,7 @@ The energyDecline of Basecamp is 1.
 The healthDeclineWithNoEnergy of Basecamp is 11.
 The description of Basecamp is "Plaza Argentina Base Camp (4200m) for Mt. Aconcagua. The trail up to the summit begins here. It's a dangerous, but non-technical climb. There is a collection of ragtag temporary structures that form the Guardia’s seasonal presence at the less popular Polish Route base camp. Brightly colored tents dot the plateau. The Polish Glacier looms in the distance, and a swift stream - the headwaters of the Vacas river flow from its base. There is an outhouse on the edge of camp. The weekly helicopter retrieval of the 50 gallon drum of waste is a highlight and one of the only things that marks civilized time.
 
---- Here, each action requires [the energyDecline of Basecamp] energy point. And without energy, your health will decrease [the healthDeclineWithNoEnergy of Basecamp] points per action. ---".
+--- Down here, each action requires [the energyDecline of Basecamp] energy point. And without energy, your health will decrease [the healthDeclineWithNoEnergy of Basecamp] points per action. ---".
 South of Basecamp is nowhere.
 
 Camp1 is a room.
@@ -377,7 +462,7 @@ The energyDecline of Camp2 is 5.
 The healthDeclineWithNoEnergy of Camp2 is 15.
 The description of Camp2 is "Camp 2 (5850m) Camp 2 is located at the base of visible portions of the Polish Glacier. Below, it retreats under the moraine, but above you, it appears as a both a wall and a river of blue-green ice and white pillars. These are Los Penitentes, statues in ice guarding the glacier. From here, you can see all the way to the Valle de Vacas. Just like with portages from Plaza Argentina to Camp 1, you must make several trips over 3 days from Camp 1 to Camp 2 to haul the rest of your gear. You leave almost nothing behind at Camp 1, except for an emergency shelter tent and some provisions. You have the option of stashing extra water and saving some of your favorite food for the descent. 
 
---- Here, each action requires [the energyDecline of Camp2] energy points. And without energy, your health will decrease [the healthDeclineWithNoEnergy of Camp2] points per action. ---".
+--- At this altitude, each action requires [the energyDecline of Camp2] energy points. And without energy, your health will decrease [the healthDeclineWithNoEnergy of Camp2] points per action. ---".
 Camp2 is north of Camp1.
 
 Camp3 is a room.
@@ -385,7 +470,7 @@ The energyDecline of Camp3 is 10.
 The healthDeclineWithNoEnergy of Camp3 is 20.
 The description of Camp3 is "Camp 3 (400m elevation gain). No one stays in Camp 3 for long. It is above the 'kill zone' where lack of oxygen and hypoxia can cause rapid deterioration in your mental and physical state. If you decide to use Camp 3, it’s only for a quick stop over so you can be up well before sunrise to attempt the summit. You take only the bare essentials: shelter, food, safety equipment, and your climbing gear. You leave your tent and sleeping bag behind, but you won’t be staying at Camp 3 after the summit. You will stop to retrieve your equipment, if you survive the summit, but that’s it. If you choose to summit from Camp 3, you will have less climbing to do, but you will also be weaker from the extra time at altitude. 
 
---- Here, each action requires [the energyDecline of Camp3] energy points. And without energy, your health will decrease [the healthDeclineWithNoEnergy of Camp3] points per action. ---".
+--- Way up here, each action requires [the energyDecline of Camp3] energy points. And without energy, your health will decrease [the healthDeclineWithNoEnergy of Camp3] points per action. ---".
 Camp3 is north of Camp2.
 
 Summit is a room.
@@ -393,7 +478,7 @@ The energyDecline of Summit is 10.
 The healthDeclineWithNoEnergy of Summit is 20.
 The description of Summit is "Summit (6962m). The summit of Aconcagua is unremarkable in some ways. It’s a rocky outcropping with various markers, cairns and flags placed there by other climbers. You pause, but not for too long, for photographs and to congratulate members of your team for the accomplishment. You know that you are on the highest peak anywhere except for the Himalayas. Now, you must descend before the weather turns or you lose your mind from lack of oxygen. 
 
---- Here, each action requires [the energyDecline of Summit] energy points. And without energy, your health will decrease [the healthDeclineWithNoEnergy of Summit] points per action. ---".
+--- At the top, each action requires [the energyDecline of Summit] energy points. And without energy, your health will decrease [the healthDeclineWithNoEnergy of Summit] points per action. ---".
 Summit is north of Camp3.
 North of Summit is nowhere.
 
