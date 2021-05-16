@@ -645,17 +645,19 @@ Your energy has increased from 80% to 100%.
     </item>
     <item nodeId="node-1068">
         <command xml:space="preserve">open chest</command>
-        <result xml:space="preserve">You open 'Basecamp Chest', revealing a backpack, a water bottle, an ice axe, crampons, a rope, a tent, a chemical warming pack, a small pack of jerkey, an orange and a cliff bar.
+        <result xml:space="preserve">You open 'Basecamp Chest', revealing an orange, a cliff bar, beef jerky, chicken jerky, a water bottle, an ice axe, crampons, a rope, a tent and a chemical warming pack.
 
-Current Load: 0%    Max Load: 0%            Energy: 99%    Health: 100%
+Current Load: 0%    Max Load: 100%            Energy: 99%    Health: 100%
 &gt;</result>
         <commentary xml:space="preserve"></commentary>
         <children><child nodeId="node-1277"></child>
             <child nodeId="node-1250"></child>
+            <child nodeId="node-1804"></child>
             <child nodeId="node-1246"></child>
             <child nodeId="node-1227"></child>
             <child nodeId="node-1220"></child>
             <child nodeId="node-1216"></child>
+            <child nodeId="node-1852"></child>
             <child nodeId="node-1210"></child>
             <child nodeId="node-1201"></child>
             <child nodeId="node-1196"></child>
@@ -699,7 +701,11 @@ Current Load: 0%    Max Load: 100%            Energy: 97%    Health: 100%
     </item>
     <item nodeId="node-1526">
         <command xml:space="preserve">take all</command>
-        <result xml:space="preserve">water bottle: Taken.
+        <result xml:space="preserve">orange: Taken.
+cliff bar: (putting the orange into the backpack to make room)
+Taken.
+water bottle: (putting the cliff bar into the backpack to make room)
+Taken.
 ice axe: (putting the water bottle into the backpack to make room)
 Taken.
 crampons: (putting the ice axe into the backpack to make room)
@@ -711,10 +717,6 @@ Taken.
 chemical warming pack: (putting the tent into the backpack to make room)
 Taken.
 small pack of jerkey: (putting the chemical warming pack into the backpack to make room)
-Taken.
-orange: (putting the small pack of jerkey into the backpack to make room)
-Taken.
-cliff bar: (putting the orange into the backpack to make room)
 Taken.
 
 Current Load: 92%    Max Load: 100%            Energy: 96%    Health: 100%
@@ -854,6 +856,139 @@ Current Load: 92%    Max Load: 100%            Energy: 60%    Health: 100%
 
 &gt;</result>
         <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1635"></child>
+        </children>
+    </item>
+    <item nodeId="node-1635">
+        <command xml:space="preserve">go n</command>
+        <result xml:space="preserve">You won't be able to carry all that up there because your max load at Camp2 is only 75%. You have to drop some items (though you can always come back for them).
+
+Current Load: 92%    Max Load: 100%            Energy: 58%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1636"></child>
+        </children>
+    </item>
+    <item nodeId="node-1636">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  a small pack of jerkey
+  a backpack (being worn and open)
+    a chemical warming pack
+    a tent
+    a rope
+    crampons
+    an ice axe
+    a water bottle
+    a cliff bar
+    an orange
+
+Current Load: 92%    Max Load: 100%            Energy: 56%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1637"></child>
+        </children>
+    </item>
+    <item nodeId="node-1637">
+        <command xml:space="preserve">eat orange</command>
+        <result xml:space="preserve">Your energy has increased a bit.
+
+Current Load: 92%    Max Load: 100%            Energy: 60%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1638"></child>
+        </children>
+    </item>
+    <item nodeId="node-1638">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  a small pack of jerkey
+  a backpack (being worn and open)
+    a chemical warming pack
+    a tent
+    a rope
+    crampons
+    an ice axe
+    a water bottle
+    a cliff bar
+
+Current Load: 92%    Max Load: 100%            Energy: 58%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1639"></child>
+        </children>
+    </item>
+    <item nodeId="node-1639">
+        <command xml:space="preserve">eat jerkey</command>
+        <result xml:space="preserve">The small pack of jerkey might be edible, but you probably don't want test it out now.
+
+Current Load: 92%    Max Load: 100%            Energy: 56%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1663"></child>
+        </children>
+    </item>
+    <item nodeId="node-1663">
+        <command xml:space="preserve">eat the small pack of jerkey</command>
+        <result xml:space="preserve">The small pack of jerkey might be edible, but you probably don't want test it out now.
+
+Current Load: 92%    Max Load: 100%            Energy: 54%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1664"></child>
+        </children>
+    </item>
+    <item nodeId="node-1664">
+        <command xml:space="preserve">ACTIONS</command>
+        <result xml:space="preserve">Actions listing on.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1665"></child>
+        </children>
+    </item>
+    <item nodeId="node-1665">
+        <command xml:space="preserve">eat the small pack of jerkey</command>
+        <result xml:space="preserve">[eating the small pack of jerkey]
+The small pack of jerkey might be edible, but you probably don't want test it out now.
+[eating the small pack of jerkey - ended without result]
+
+Current Load: 92%    Max Load: 100%            Energy: 52%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1692"></child>
+        </children>
+    </item>
+    <item nodeId="node-1692">
+        <command xml:space="preserve">eat cliff bar</command>
+        <result xml:space="preserve">[eating the cliff bar]
+Your energy has increased a bit.
+[eating the cliff bar - failed]
+
+Current Load: 92%    Max Load: 100%            Energy: 65%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1774"></child>
+        </children>
+    </item>
+    <item nodeId="node-1774">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">[taking inventory]
+You are carrying:
+  a small pack of jerkey
+  a backpack (being worn and open)
+    a chemical warming pack
+    a tent
+    a rope
+    crampons
+    an ice axe
+    a water bottle
+
+[taking inventory - succeeded]
+
+Current Load: 92%    Max Load: 100%            Energy: 63%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
     </item>
     <item nodeId="node-1069">
         <command xml:space="preserve">x self</command>
@@ -971,15 +1106,117 @@ Current Load: 53%    Max Load: 100%            Energy: 95%    Health: 100%
     </item>
     <item nodeId="node-1504">
         <command xml:space="preserve">take all</command>
-        <result xml:space="preserve">water bottle: Taken.
+        <result xml:space="preserve">orange: Taken.
+cliff bar: (putting the orange into the backpack to make room)
+Taken.
+small pack of jerky: (putting the cliff bar into the backpack to make room)
+Taken.
+water bottle: (putting the small pack of jerky into the backpack to make room)
+Taken.
 ice axe: (putting the water bottle into the backpack to make room)
 Taken.
-tent: (putting the ice axe into the backpack to make room)
+crampons: (putting the ice axe into the backpack to make room)
 Taken.
-orange: (putting the tent into the backpack to make room)
+rope: (putting crampons into the backpack to make room)
+Taken.
+tent: (putting the rope into the backpack to make room)
+Taken.
+chemical warming pack: (putting the tent into the backpack to make room)
 Taken.
 
-Current Load: 53%    Max Load: 100%            Energy: 97%    Health: 100%
+Current Load: 99%    Max Load: 100%            Energy: 97%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1809"></child>
+        </children>
+    </item>
+    <item nodeId="node-1809">
+        <command xml:space="preserve">eat orange</command>
+        <result xml:space="preserve">(first taking the orange)
+You're at max capacity. At this elevation you're max load is 100% and you're currently holding 99%, but this item requires an additional 3%.
+
+Current Load: 99%    Max Load: 100%            Energy: 96%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1810"></child>
+        </children>
+    </item>
+    <item nodeId="node-1810">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  a chemical warming pack
+  a backpack (being worn and open)
+    a tent
+    a rope
+    crampons
+    an ice axe
+    a water bottle
+    a small pack of jerky
+    a cliff bar
+    an orange
+
+Current Load: 99%    Max Load: 100%            Energy: 95%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1811"></child>
+        </children>
+    </item>
+    <item nodeId="node-1811">
+        <command xml:space="preserve">eat orange</command>
+        <result xml:space="preserve">(first taking the orange)
+You're at max capacity. At this elevation you're max load is 100% and you're currently holding 99%, but this item requires an additional 3%.
+
+Current Load: 99%    Max Load: 100%            Energy: 94%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1812"></child>
+        </children>
+    </item>
+    <item nodeId="node-1812">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  a chemical warming pack
+  a backpack (being worn and open)
+    a tent
+    a rope
+    crampons
+    an ice axe
+    a water bottle
+    a small pack of jerky
+    a cliff bar
+    an orange
+
+Current Load: 99%    Max Load: 100%            Energy: 93%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1813"></child>
+        </children>
+    </item>
+    <item nodeId="node-1813">
+        <command xml:space="preserve">take orange</command>
+        <result xml:space="preserve">You're at max capacity. At this elevation you're max load is 100% and you're currently holding 99%, but this item requires an additional 3%.
+
+Current Load: 99%    Max Load: 100%            Energy: 92%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1814"></child>
+        </children>
+    </item>
+    <item nodeId="node-1814">
+        <command xml:space="preserve">drop rope</command>
+        <result xml:space="preserve">You haven't got that.
+
+Current Load: 89%    Max Load: 100%            Energy: 91%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1815"></child>
+        </children>
+    </item>
+    <item nodeId="node-1815">
+        <command xml:space="preserve">take tent</command>
+        <result xml:space="preserve">You're at max capacity. At this elevation you're max load is 100% and you're currently holding 89%, but this item requires an additional 20%.
+
+Current Load: 89%    Max Load: 100%            Energy: 90%    Health: 100%
 &gt;</result>
         <commentary xml:space="preserve"></commentary>
     </item>
@@ -1821,13 +2058,21 @@ Load: 0%  Energy: 94%  Health: 100%
     </item>
     <item nodeId="node-1167">
         <command xml:space="preserve">take all</command>
-        <result xml:space="preserve">water bottle: U need back packice axe: U need back packtent: U need back packbackpack: Taken.
-orange: You're carrying too many things already.
+        <result xml:space="preserve">orange: Taken.
+cliff bar: Taken.
+small pack of jerky: Taken.
+water bottle: Taken.
+ice axe: Taken.
+crampons: Taken.
+rope: Taken.
+tent: Taken.
+chemical warming pack: You're at max capacity. At this elevation you're max load is 100% and you're currently holding 94%, but this item requires an additional 8%.
 
-Current Load: 0%    Max Load: 100%            Energy: 98%    Health: 100%
+Current Load: 94%    Max Load: 100%            Energy: 98%    Health: 100%
 &gt;</result>
         <commentary xml:space="preserve"></commentary>
         <children><child nodeId="node-1194"></child>
+            <child nodeId="node-1819"></child>
             <child nodeId="node-1183"></child>
             <child nodeId="node-1175"></child>
             <child nodeId="node-1173"></child>
@@ -2008,7 +2253,7 @@ Camp 1 (4900m)  At 16,076 feet above sea level, Camp 1 is higher than most peopl
 
 --- Here, each action requires 2 energy points. And without energy, your health will decrease 12 points per action. ---
 
-Load: 0%  Energy: 76%  Health: 100%
+Current Load: 94%    Max Load: 100%            Energy: 76%    Health: 100%
 &gt;</result>
         <commentary xml:space="preserve"></commentary>
         <children><child nodeId="node-1185"></child>
@@ -2016,10 +2261,13 @@ Load: 0%  Energy: 76%  Health: 100%
     </item>
     <item nodeId="node-1185">
         <command xml:space="preserve">go n</command>
-        <result xml:space="preserve">Are you sure you want to go to Camp2? A glacier is blocking the path and there's no way around it... climbing it is risky and will require 30 energy.
-</result>
+        <result xml:space="preserve">You won't be able to carry all that up there because your max load at Camp2 is only 75%. You have to drop some items (though you can always come back for them).
+
+Current Load: 94%    Max Load: 100%            Energy: 74%    Health: 100%
+&gt;</result>
         <commentary xml:space="preserve"></commentary>
-        <children><child nodeId="node-1186"></child>
+        <children><child nodeId="node-1849"></child>
+            <child nodeId="node-1186"></child>
         </children>
     </item>
     <item nodeId="node-1186">
@@ -2123,6 +2371,174 @@ Camp 2 (5850m) Camp 2 is located at the base of visible portions of the Polish G
 --- At this altitude, each action requires 5 energy points. And without energy, your health will decrease 15 points per action. ---
 
 Load: 0%  Energy: 11%  Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+    </item>
+    <item nodeId="node-1849">
+        <command xml:space="preserve">drop beef jerky</command>
+        <result xml:space="preserve">You can't see any such thing.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1850"></child>
+        </children>
+    </item>
+    <item nodeId="node-1850">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  a tent
+  a rope
+  crampons
+  an ice axe
+  a water bottle
+  a small pack of jerky
+  a cliff bar
+  an orange
+
+Current Load: 94%    Max Load: 100%            Energy: 72%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+    </item>
+    <item nodeId="node-1819">
+        <command xml:space="preserve">eat orange</command>
+        <result xml:space="preserve">Your energy has increased abit.
+
+Current Load: 94%    Max Load: 100%            Energy: 100%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1820"></child>
+        </children>
+    </item>
+    <item nodeId="node-1820">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  a tent
+  a rope
+  crampons
+  an ice axe
+  a water bottle
+  a small pack of jerky
+  a cliff bar
+
+Current Load: 94%    Max Load: 100%            Energy: 99%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1821"></child>
+        </children>
+    </item>
+    <item nodeId="node-1821">
+        <command xml:space="preserve">eat jerky</command>
+        <result xml:space="preserve">Your energy has increased abit.
+
+Current Load: 94%    Max Load: 100%            Energy: 100%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1822"></child>
+        </children>
+    </item>
+    <item nodeId="node-1822">
+        <command xml:space="preserve">go n</command>
+        <result xml:space="preserve">Are you sure you want to go to Camp1? This hike will require 20 energy.
+</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1823"></child>
+        </children>
+    </item>
+    <item nodeId="node-1823">
+        <command xml:space="preserve">y</command>
+        <result xml:space="preserve">You make the trek to Camp1.
+
+Camp1
+Camp 1 (4900m)  At 16,076 feet above sea level, Camp 1 is higher than most people have every climbed. It is higher than any peak in North America. It is just 1000 feet lower than Everest Base Camp in Nepal. Camp 1 is located at the top of the trail on a plateau. Aconcagua is not visible from here, but its sister, Mt. Ameguino's snowy peak looms above you. The camp is located several hundred meters from the glacial stream. There is no outhouse (you must bury your waste, away from any area that could contaminate the stream). Carrying water from the stream to boil for hydration and cooking is required. You can only carry part of what you need to Camp 1 on your first trip, so you must plan carefully. Climbers stay one night in Camp 1, then return to Base Camp for more supplies. You have to bring the bare essentials - tent, sleeping bag, camp stove, food. You don't immediately need ice climbing equipment - mountaineering boots, crampons, ice ax, harness, helmet, rope. But you will eventually need to bring up to Camp 1, as it's needed at higher elevations.
+
+--- Here, each action requires 2 energy points. And without energy, your health will decrease 12 points per action. ---
+
+Current Load: 94%    Max Load: 100%            Energy: 78%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1824"></child>
+        </children>
+    </item>
+    <item nodeId="node-1824">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  a tent
+  a rope
+  crampons
+  an ice axe
+  a water bottle
+  a cliff bar
+
+Current Load: 94%    Max Load: 100%            Energy: 76%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1825"></child>
+        </children>
+    </item>
+    <item nodeId="node-1825">
+        <command xml:space="preserve">x crampons</command>
+        <result xml:space="preserve">Spiky boots. Crampons will decrease your chance of falling while climbing a glacier by 30%. It requires 15% of your load capacity.
+
+Current Load: 94%    Max Load: 100%            Energy: 74%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1826"></child>
+        </children>
+    </item>
+    <item nodeId="node-1826">
+        <command xml:space="preserve">go n</command>
+        <result xml:space="preserve">You won't be able to carry all that up there because your max load at Camp2 is only 75%. You have to drop some items (though you can always come back for them).
+
+Current Load: 94%    Max Load: 100%            Energy: 72%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1827"></child>
+        </children>
+    </item>
+    <item nodeId="node-1827">
+        <command xml:space="preserve">drop crampons and rope</command>
+        <result xml:space="preserve">crampons: Dropped.
+rope: Dropped.
+
+Current Load: 69%    Max Load: 100%            Energy: 70%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1828"></child>
+        </children>
+    </item>
+    <item nodeId="node-1828">
+        <command xml:space="preserve">go n</command>
+        <result xml:space="preserve">Are you sure you want to go to Camp2? A glacier is blocking the path and there's no way around it... climbing it is risky and will require 30 energy.
+</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1829"></child>
+        </children>
+    </item>
+    <item nodeId="node-1829">
+        <command xml:space="preserve">y</command>
+        <result xml:space="preserve">You begin the climb to Camp2.
+
+You climb, climb, and climb.
+
+Your limbs want to give up - but you won't let them.
+
+Aside from a few near death experiences, you finally make it to the top!
+
+Camp2
+Camp 2 (5850m) Camp 2 is located at the base of visible portions of the Polish Glacier. Below, it retreats under the moraine, but above you, it appears as a both a wall and a river of blue-green ice and white pillars. These are Los Penitentes, statues in ice guarding the glacier. From here, you can see all the way to the Valle de Vacas. Just like with portages from Plaza Argentina to Camp 1, you must make several trips over 3 days from Camp 1 to Camp 2 to haul the rest of your gear. You leave almost nothing behind at Camp 1, except for an emergency shelter tent and some provisions. You have the option of stashing extra water and saving some of your favorite food for the descent.
+
+--- At this altitude, each action requires 5 energy points. And without energy, your health will decrease 15 points per action. ---
+
+Current Load: 69%    Max Load: 100%            Energy: 35%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1843"></child>
+        </children>
+    </item>
+    <item nodeId="node-1843">
+        <command xml:space="preserve">use first aid kit</command>
+        <result xml:space="preserve">That's not a verb I recognise.
+
 &gt;</result>
         <commentary xml:space="preserve"></commentary>
     </item>
@@ -2325,6 +2741,24 @@ You eat the orange. Not bad.
         <command xml:space="preserve">x chest1</command>
         <result xml:space="preserve">You see nothing special about chest1.
 
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+    </item>
+    <item nodeId="node-1852">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying nothing.
+
+Current Load: 0%    Max Load: 100%            Energy: 98%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1853"></child>
+        </children>
+    </item>
+    <item nodeId="node-1853">
+        <command xml:space="preserve">eat jerky</command>
+        <result xml:space="preserve">The small pack of jerky might be edible, but you probably don't want test it out now.
+
+Current Load: 0%    Max Load: 100%            Energy: 97%    Health: 100%
 &gt;</result>
         <commentary xml:space="preserve"></commentary>
     </item>
@@ -2655,13 +3089,150 @@ Energy: 0%  Health: 100%
     <item nodeId="node-1246">
         <command xml:space="preserve">eat orange</command>
         <result xml:space="preserve">(first taking the orange)
-Your energy has increased to 100%.
+Your energy has increased abit.
 
-Energy: 99%  Health: 100%
+Current Load: 0%    Max Load: 0%            Energy: 100%    Health: 100%
 &gt;</result>
         <commentary xml:space="preserve"></commentary>
-        <children><child nodeId="node-1247"></child>
+        <children><child nodeId="node-1796"></child>
+            <child nodeId="node-1247"></child>
+            <child nodeId="node-1781"></child>
         </children>
+    </item>
+    <item nodeId="node-1781">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying nothing.
+
+Current Load: 0%    Max Load: 0%            Energy: 97%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1782"></child>
+        </children>
+    </item>
+    <item nodeId="node-1782">
+        <command xml:space="preserve">wear backpack</command>
+        <result xml:space="preserve">(first taking the backpack)
+You put on the backpack.
+
+Current Load: 0%    Max Load: 100%            Energy: 96%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1783"></child>
+        </children>
+    </item>
+    <item nodeId="node-1783">
+        <command xml:space="preserve">take all</command>
+        <result xml:space="preserve">orange: Taken.
+cliff bar: (putting the orange into the backpack to make room)
+Taken.
+water bottle: (putting the cliff bar into the backpack to make room)
+Taken.
+ice axe: (putting the water bottle into the backpack to make room)
+Taken.
+crampons: (putting the ice axe into the backpack to make room)
+Taken.
+rope: (putting crampons into the backpack to make room)
+Taken.
+tent: (putting the rope into the backpack to make room)
+Taken.
+chemical warming pack: (putting the tent into the backpack to make room)
+Taken.
+small pack of jerkey: (putting the chemical warming pack into the backpack to make room)
+Taken.
+
+Current Load: 92%    Max Load: 100%            Energy: 95%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1784"></child>
+        </children>
+    </item>
+    <item nodeId="node-1784">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  a small pack of jerkey
+  a backpack (being worn and open)
+    a chemical warming pack
+    a tent
+    a rope
+    crampons
+    an ice axe
+    a water bottle
+    a cliff bar
+    an orange
+
+Current Load: 92%    Max Load: 100%            Energy: 94%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1785"></child>
+        </children>
+    </item>
+    <item nodeId="node-1785">
+        <command xml:space="preserve">take orange</command>
+        <result xml:space="preserve">(putting the small pack of jerkey into the backpack to make room)
+Taken.
+
+Current Load: 95%    Max Load: 100%            Energy: 93%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1786"></child>
+        </children>
+    </item>
+    <item nodeId="node-1786">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  an orange
+  a backpack (being worn and open)
+    a small pack of jerkey
+    a chemical warming pack
+    a tent
+    a rope
+    crampons
+    an ice axe
+    a water bottle
+    a cliff bar
+
+Current Load: 95%    Max Load: 100%            Energy: 92%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1787"></child>
+        </children>
+    </item>
+    <item nodeId="node-1787">
+        <command xml:space="preserve">x</command>
+        <result xml:space="preserve">What do you want to examine?
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1788"></child>
+        </children>
+    </item>
+    <item nodeId="node-1788">
+        <command xml:space="preserve">x self</command>
+        <result xml:space="preserve">As good-looking as ever.
+
+Current Load: 95%    Max Load: 100%            Energy: 91%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1789"></child>
+        </children>
+    </item>
+    <item nodeId="node-1789">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  an orange
+  a backpack (being worn and open)
+    a small pack of jerkey
+    a chemical warming pack
+    a tent
+    a rope
+    crampons
+    an ice axe
+    a water bottle
+    a cliff bar
+
+Current Load: 95%    Max Load: 100%            Energy: 90%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
     </item>
     <item nodeId="node-1247">
         <command xml:space="preserve">energize self</command>
@@ -2686,6 +3257,470 @@ Energy: 99%  Health: 100%
         <result xml:space="preserve">In 'Basecamp Chest' are a water bottle, an ice axe and a tent.
 
 Energy: 98%  Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+    </item>
+    <item nodeId="node-1796">
+        <command xml:space="preserve">eat jerky</command>
+        <result xml:space="preserve">You can't see any such thing.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1800"></child>
+        </children>
+    </item>
+    <item nodeId="node-1800">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying nothing.
+
+Current Load: 0%    Max Load: 0%            Energy: 99%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1801"></child>
+        </children>
+    </item>
+    <item nodeId="node-1801">
+        <command xml:space="preserve">open chest</command>
+        <result xml:space="preserve">That's already open.
+
+Current Load: 0%    Max Load: 0%            Energy: 98%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1802"></child>
+        </children>
+    </item>
+    <item nodeId="node-1802">
+        <command xml:space="preserve">x chest</command>
+        <result xml:space="preserve">In 'Basecamp Chest' are a backpack, a cliff bar, a water bottle, an ice axe, crampons, a rope, a tent, a chemical warming pack and a small pack of jerkey.
+
+Current Load: 0%    Max Load: 0%            Energy: 97%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+    </item>
+    <item nodeId="node-1804">
+        <command xml:space="preserve">eat jerky</command>
+        <result xml:space="preserve">Which do you mean, beef jerky or chicken jerky?
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1856"></child>
+            <child nodeId="node-1805"></child>
+        </children>
+    </item>
+    <item nodeId="node-1805">
+        <command xml:space="preserve">eat orange</command>
+        <result xml:space="preserve">You're not hungry right now.
+
+Current Load: 0%    Max Load: 0%            Energy: 99%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+    </item>
+    <item nodeId="node-1856">
+        <command xml:space="preserve">eat chicken jerky</command>
+        <result xml:space="preserve">(first taking chicken jerky)
+Your energy has increased a bit.
+
+Current Load: 10%    Max Load: 100%            Energy: 100%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1857"></child>
+        </children>
+    </item>
+    <item nodeId="node-1857">
+        <command xml:space="preserve">x chicken jerky</command>
+        <result xml:space="preserve">You can't see any such thing.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1858"></child>
+        </children>
+    </item>
+    <item nodeId="node-1858">
+        <command xml:space="preserve">x beef jerky</command>
+        <result xml:space="preserve">Beef jerky can replenish 25% of your energy but requires 10% of your load.
+
+Current Load: 10%    Max Load: 100%            Energy: 99%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1859"></child>
+        </children>
+    </item>
+    <item nodeId="node-1859">
+        <command xml:space="preserve">take all</command>
+        <result xml:space="preserve">orange: Taken.
+cliff bar: Taken.
+beef jerky: Taken.
+water bottle: Taken.
+ice axe: Taken.
+crampons: Taken.
+rope: Taken.
+tent: You're at max capacity. At this elevation you're max load is 100% and you're currently holding 84%, but this item requires an additional 20%.
+chemical warming pack: Taken.
+
+Current Load: 92%    Max Load: 100%            Energy: 98%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1860"></child>
+        </children>
+    </item>
+    <item nodeId="node-1860">
+        <command xml:space="preserve">drop rope, cliff bar</command>
+        <result xml:space="preserve">rope: Dropped.
+cliff bar: Dropped.
+
+Current Load: 76%    Max Load: 100%            Energy: 97%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1861"></child>
+        </children>
+    </item>
+    <item nodeId="node-1861">
+        <command xml:space="preserve">drop bottle</command>
+        <result xml:space="preserve">Dropped.
+
+Current Load: 61%    Max Load: 100%            Energy: 96%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1862"></child>
+        </children>
+    </item>
+    <item nodeId="node-1862">
+        <command xml:space="preserve">go n</command>
+        <result xml:space="preserve">Before heading up to Camp1, you should at least bring food, water, shelter, and an ice axe.
+
+Current Load: 61%    Max Load: 100%            Energy: 95%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1863"></child>
+        </children>
+    </item>
+    <item nodeId="node-1863">
+        <command xml:space="preserve">go n</command>
+        <result xml:space="preserve">Before heading up to Camp1, you should at least bring food, water, shelter, and an ice axe.
+
+Current Load: 61%    Max Load: 100%            Energy: 94%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1864"></child>
+        </children>
+    </item>
+    <item nodeId="node-1864">
+        <command xml:space="preserve">go n</command>
+        <result xml:space="preserve">Before heading up to Camp1, you should at least bring food, water, shelter, and an ice axe.
+
+Current Load: 61%    Max Load: 100%            Energy: 93%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1865"></child>
+        </children>
+    </item>
+    <item nodeId="node-1865">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  a chemical warming pack
+  crampons
+  an ice axe
+  beef jerky
+  an orange
+
+Current Load: 61%    Max Load: 100%            Energy: 92%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1866"></child>
+        </children>
+    </item>
+    <item nodeId="node-1866">
+        <command xml:space="preserve">take bottle</command>
+        <result xml:space="preserve">Taken.
+
+Current Load: 76%    Max Load: 100%            Energy: 91%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1867"></child>
+        </children>
+    </item>
+    <item nodeId="node-1867">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  a water bottle
+  a chemical warming pack
+  crampons
+  an ice axe
+  beef jerky
+  an orange
+
+Current Load: 76%    Max Load: 100%            Energy: 90%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1868"></child>
+        </children>
+    </item>
+    <item nodeId="node-1868">
+        <command xml:space="preserve">drop crampons</command>
+        <result xml:space="preserve">Dropped.
+
+Current Load: 61%    Max Load: 100%            Energy: 89%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1869"></child>
+        </children>
+    </item>
+    <item nodeId="node-1869">
+        <command xml:space="preserve">go n</command>
+        <result xml:space="preserve">Before heading up to Camp1, you should at least bring food, water, shelter, and an ice axe.
+
+Current Load: 61%    Max Load: 100%            Energy: 88%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1870"></child>
+        </children>
+    </item>
+    <item nodeId="node-1870">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  a water bottle
+  a chemical warming pack
+  an ice axe
+  beef jerky
+  an orange
+
+Current Load: 61%    Max Load: 100%            Energy: 87%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1871"></child>
+        </children>
+    </item>
+    <item nodeId="node-1871">
+        <command xml:space="preserve">take tent</command>
+        <result xml:space="preserve">Taken.
+
+Current Load: 81%    Max Load: 100%            Energy: 86%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1872"></child>
+        </children>
+    </item>
+    <item nodeId="node-1872">
+        <command xml:space="preserve">drop orange</command>
+        <result xml:space="preserve">Dropped.
+
+Current Load: 78%    Max Load: 100%            Energy: 85%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1873"></child>
+        </children>
+    </item>
+    <item nodeId="node-1873">
+        <command xml:space="preserve">go n</command>
+        <result xml:space="preserve">Are you sure you want to go to Camp1? This hike will require 20 energy.
+</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1874"></child>
+        </children>
+    </item>
+    <item nodeId="node-1874">
+        <command xml:space="preserve">y</command>
+        <result xml:space="preserve">You make the trek to Camp1.
+
+Camp1
+Camp 1 (4900m)  At 16,076 feet above sea level, Camp 1 is higher than most people have every climbed. It is higher than any peak in North America. It is just 1000 feet lower than Everest Base Camp in Nepal. Camp 1 is located at the top of the trail on a plateau. Aconcagua is not visible from here, but its sister, Mt. Ameguino's snowy peak looms above you. The camp is located several hundred meters from the glacial stream. There is no outhouse (you must bury your waste, away from any area that could contaminate the stream). Carrying water from the stream to boil for hydration and cooking is required. You can only carry part of what you need to Camp 1 on your first trip, so you must plan carefully. Climbers stay one night in Camp 1, then return to Base Camp for more supplies. You have to bring the bare essentials - tent, sleeping bag, camp stove, food. You don't immediately need ice climbing equipment - mountaineering boots, crampons, ice ax, harness, helmet, rope. But you will eventually need to bring up to Camp 1, as it's needed at higher elevations.
+
+--- Here, each action requires 2 energy points. And without energy, your health will decrease 12 points per action. ---
+
+Current Load: 78%    Max Load: 100%            Energy: 63%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1875"></child>
+        </children>
+    </item>
+    <item nodeId="node-1875">
+        <command xml:space="preserve">go n</command>
+        <result xml:space="preserve">You won't be able to carry all that up there because your max load at Camp2 is only 75%. You have to drop some items (though you can always come back for them).
+
+Current Load: 78%    Max Load: 100%            Energy: 61%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1876"></child>
+        </children>
+    </item>
+    <item nodeId="node-1876">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  a tent
+  a water bottle
+  a chemical warming pack
+  an ice axe
+  beef jerky
+
+Current Load: 78%    Max Load: 100%            Energy: 59%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1877"></child>
+        </children>
+    </item>
+    <item nodeId="node-1877">
+        <command xml:space="preserve">drop tent</command>
+        <result xml:space="preserve">Dropped.
+
+Current Load: 58%    Max Load: 100%            Energy: 57%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1878"></child>
+        </children>
+    </item>
+    <item nodeId="node-1878">
+        <command xml:space="preserve">go n</command>
+        <result xml:space="preserve">Are you sure you want to go to Camp2? A glacier is blocking the path and there's no way around it... climbing it is risky and will require 30 energy.
+</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1879"></child>
+        </children>
+    </item>
+    <item nodeId="node-1879">
+        <command xml:space="preserve">y</command>
+        <result xml:space="preserve">You begin the climb to Camp2.
+
+You climb, climb, and climb.
+
+Your limbs want to give up - but you won't let them.
+
+Aside from a few near death experiences, you finally make it to the top!
+
+Camp2
+Camp 2 (5850m) Camp 2 is located at the base of visible portions of the Polish Glacier. Below, it retreats under the moraine, but above you, it appears as a both a wall and a river of blue-green ice and white pillars. These are Los Penitentes, statues in ice guarding the glacier. From here, you can see all the way to the Valle de Vacas. Just like with portages from Plaza Argentina to Camp 1, you must make several trips over 3 days from Camp 1 to Camp 2 to haul the rest of your gear. You leave almost nothing behind at Camp 1, except for an emergency shelter tent and some provisions. You have the option of stashing extra water and saving some of your favorite food for the descent.
+
+--- At this altitude, each action requires 5 energy points. And without energy, your health will decrease 15 points per action. ---
+
+Current Load: 58%    Max Load: 100%            Energy: 22%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1880"></child>
+        </children>
+    </item>
+    <item nodeId="node-1880">
+        <command xml:space="preserve">go n</command>
+        <result xml:space="preserve">You won't be able to carry all that up there because your max load at Camp3 is only 40%. You have to drop some items (though you can always come back for them).
+
+Current Load: 58%    Max Load: 100%            Energy: 17%    Health: 100%
+
+Your energy is low! You need food, water, or rest.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1881"></child>
+        </children>
+    </item>
+    <item nodeId="node-1881">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  a water bottle
+  a chemical warming pack
+  an ice axe
+  beef jerky
+
+Current Load: 58%    Max Load: 100%            Energy: 12%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1882"></child>
+        </children>
+    </item>
+    <item nodeId="node-1882">
+        <command xml:space="preserve">eat jerky</command>
+        <result xml:space="preserve">increased by 25 to 37
+Your energy has increased a bit.
+
+Current Load: 48%    Max Load: 100%            Energy: 32%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1883"></child>
+        </children>
+    </item>
+    <item nodeId="node-1883">
+        <command xml:space="preserve">go n</command>
+        <result xml:space="preserve">You won't be able to carry all that up there because your max load at Camp3 is only 40%. You have to drop some items (though you can always come back for them).
+
+Current Load: 48%    Max Load: 100%            Energy: 27%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1884"></child>
+        </children>
+    </item>
+    <item nodeId="node-1884">
+        <command xml:space="preserve">drop axe</command>
+        <result xml:space="preserve">Dropped.
+
+Current Load: 33%    Max Load: 100%            Energy: 22%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1885"></child>
+        </children>
+    </item>
+    <item nodeId="node-1885">
+        <command xml:space="preserve">go n</command>
+        <result xml:space="preserve">Are you sure you want to go to Camp3? This hike will require 30 energy.
+</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1886"></child>
+        </children>
+    </item>
+    <item nodeId="node-1886">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">Please answer yes or no.&gt; </result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1887"></child>
+        </children>
+    </item>
+    <item nodeId="node-1887">
+        <command xml:space="preserve">drop bottle</command>
+        <result xml:space="preserve">Please answer yes or no.&gt; </result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1922"></child>
+        </children>
+    </item>
+    <item nodeId="node-1922">
+        <command xml:space="preserve">y</command>
+        <result xml:space="preserve">You make the trek to Camp3.
+
+Camp3
+Camp 3 (400m elevation gain). No one stays in Camp 3 for long. It is above the "kill zone" where lack of oxygen and hypoxia can cause rapid deterioration in your mental and physical state. If you decide to use Camp 3, it's only for a quick stop over so you can be up well before sunrise to attempt the summit. You take only the bare essentials: shelter, food, safety equipment, and your climbing gear. You leave your tent and sleeping bag behind, but you won't be staying at Camp 3 after the summit. You will stop to retrieve your equipment, if you survive the summit, but that's it. If you choose to summit from Camp 3, you will have less climbing to do, but you will also be weaker from the extra time at altitude.
+
+--- Way up here, each action requires 10 energy points. And without energy, your health will decrease 20 points per action. ---
+
+Current Load: 33%    Max Load: 100%            Energy: 12%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1923"></child>
+        </children>
+    </item>
+    <item nodeId="node-1923">
+        <command xml:space="preserve">i</command>
+        <result xml:space="preserve">You are carrying:
+  a water bottle
+  a chemical warming pack
+
+Current Load: 33%    Max Load: 100%            Energy: 2%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-1924"></child>
+        </children>
+    </item>
+    <item nodeId="node-1924">
+        <command xml:space="preserve">use chemical warming pack</command>
+        <result xml:space="preserve">increased by 5 to 7increased by 25 to 32Your energy has increased a bit, plus a warming boost since it's so cold up here. 5 25
+Current Load: 33%    Max Load: 100%            Energy: 22%    Health: 100%
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+        <children><child nodeId="node-2147"></child>
+        </children>
+    </item>
+    <item nodeId="node-2147">
+        <command xml:space="preserve">look</command>
+        <result xml:space="preserve">Camp3
+Camp 3 (400m elevation gain). No one stays in Camp 3 for long. It is above the "kill zone" where lack of oxygen and hypoxia can cause rapid deterioration in your mental and physical state. If you decide to use Camp 3, it's only for a quick stop over so you can be up well before sunrise to attempt the summit. You take only the bare essentials: shelter, food, safety equipment, and your climbing gear. You leave your tent and sleeping bag behind, but you won't be staying at Camp 3 after the summit. You will stop to retrieve your equipment, if you survive the summit, but that's it. If you choose to summit from Camp 3, you will have less climbing to do, but you will also be weaker from the extra time at altitude.
+
+--- Way up here, each action requires 10 energy points. And without energy, your health will decrease 20 points per action. ---
+
+Current Load: 33%    Max Load: 100%            Energy: 12%    Health: 100%
 &gt;</result>
         <commentary xml:space="preserve"></commentary>
     </item>

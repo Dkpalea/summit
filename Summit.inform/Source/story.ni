@@ -19,8 +19,8 @@ The playerWarnedAboutLowHealth is initially false.
 [----- object types -----]
 
 [the player]
-The carrying capacity of the player is 1.
-The backpack is a player's holdall.
+[The carrying capacity of the player is 1.]
+[The backpack is a player's holdall.]
 
 [thing]
 A thing has a number called load.
@@ -51,25 +51,30 @@ The current load of the player is 0.
 
 [food]
 Food is a kind of thing.
-Food is usually edible.
+Food is always edible.
 Food has a number called the replenishment energy.
 The replenishment energy of a food is usually 20.
 The description of food is usually "[The noun] can replenish [the replenishment energy of the noun]% of your energy but requires [the load of the noun]% of your load.".
 
 [orange]
-An orange is a kind of food.
+An orange is food.
 The load of an orange is 3.
 The replenishment energy of an orange is 6.
 
 [cliff bar]
-A cliff bar is a kind of food.
+A cliff bar is food.
 The load of a cliff bar is 6.
 The replenishment energy of a cliff bar is 15.
 
-[a small pack of jerky]
-A small pack of jerky is a kind of food.
-The load of a small pack of jerky is 10.
-The replenishment energy of a small pack of jerky is 25.
+[beef jerky]
+beef jerky is food.
+The load of beef jerky is 10.
+The replenishment energy of beef jerky is 25.
+
+[chicken jerky]
+chicken jerky is food.
+The load of chicken jerky is 10.
+The replenishment energy of chicken jerky is 25.
 
 [water bottle]
 A water bottle is a thing.
@@ -87,27 +92,27 @@ The description of a water bottle is "Each sip replenishes [the replenishment en
 Climbing gear is a kind of thing.
 Climbing gear has a number called the climbing boost.
 The climbing boost of climbing gear is usually 0.
-The description of climbing gear is usually "[The noun] will give you a [the climbing boost of the noun]% better chance of not falling when climbing a glacier. It requires [the load of the noun]% of your load capacity.".
+The description of climbing gear is usually "[The noun] will decrease your chance of falling while climbing a glacier by [the climbing boost of the noun]%. It requires [the load of the noun]% of your load capacity.".
 
 [ice axe]
 An ice axe is a climbing gear.
 The load of an ice axe is 15.
 The climbing boost of an ice axe is 30.
 Understand "axe" as the ice axe.
-The description of an ice axe is "VERY pointy. [The noun] will give you a [the climbing boost of the noun]% better chance of not falling when climbing a glacier. It requires [the load of the noun]% of your load capacity.".
+The description of an ice axe is "VERY pointy. [The noun] will decrease your chance of falling while climbing a glacier by [the climbing boost of the noun]%. It requires [the load of the noun]% of your load capacity.".
 
 [crampons]
 crampons are a climbing gear.
 The load of crampons is 15.
 The climbing boost of crampons is 30.
 Understand "boots" as crampons.
-The description of crampons is "Spiky boots. [The noun] will give you a [the climbing boost of the noun]% better chance of not falling when climbing a glacier. It requires [the load of the noun]% of your load capacity.".
+The description of crampons is "Spiky boots. [The noun] will decrease your chance of falling while climbing a glacier by [the climbing boost of the noun]%. It requires [the load of the noun]% of your load capacity.".
 
 [rope]
 A rope is a climbing gear.
 The load of a rope is 10.
 The climbing boost of a rope is 20.
-The description of a rope is "A way to secure yourself. [The noun] will give you a [the climbing boost of the noun]% climbing boost. It requires [the load of the noun]% of your load capacity.".
+The description of a rope is "A way to secure yourself. [The noun] will decrease your chance of falling while climbing a glacier by [the climbing boost of the noun]%. It requires [the load of the noun]% of your load capacity.".
 
 
 
@@ -139,7 +144,7 @@ The description of climbing gear is usually "Sleeping in [The noun] will give yo
 A chemical warming pack is a thing.
 The load of a chemical warming pack is 8.
 A chemical warming pack has a number called the warming boost.
-The warming boost of a chemical warming pack is 15.
+The warming boost of a chemical warming pack is 25.
 A chemical warming pack has a number called the replenishment energy.
 The replenishment energy of a chemical warming pack is 5.
 The description of climbing gear is usually "Using [The noun] will give you [the replenishment energy of the noun]% energy replenishment, and a [the warming boost of the noun]% warming boost energy at higher altitudes. It requires [the load of the noun]% of your load capacity.".
@@ -185,10 +190,10 @@ After printing the name of a chest (called the item) while listing contents of a
 		omit contents in listing.
 
 [backpack]
-A backpack is a thing.
+[A backpack is a thing.
 A backpack is wearable.
 Understand "bag" as the backpack.
-The description of a backpack is "A large, but lightweight and well-supported backpack.".
+The description of a backpack is "A large, but lightweight and well-supported backpack.".]
 
 
 
@@ -198,7 +203,7 @@ The description of a backpack is "A large, but lightweight and well-supported ba
 [basecamp chest]
 There is a chest called 'Basecamp Chest'.
 'Basecamp Chest' is in Basecamp.
-'Basecamp Chest' contains an orange, a cliff bar, a small pack of jerkey, a water bottle, an ice axe, crampons, a rope, a tent, a chemical warming pack, and a backpack.
+'Basecamp Chest' contains an orange, a cliff bar, beef jerky, chicken jerky, a water bottle, an ice axe, crampons, a rope, a tent, a chemical warming pack.
 
 
 
@@ -226,8 +231,10 @@ To sip (the water bottle - a water bottle):
 		say "Ooops... you're all out of slush.".
 
 [taking]
-Instead of taking:
-	if the player is wearing a backpack or the noun is a backpack:
+[Instead of taking:
+	if the player is carrying nothing:
+		continue the action;
+	else if the player is wearing a backpack or the noun is a backpack:
 		if the current load of the player plus the load of the noun is greater than the max load of the player:
 			say "You're at max capacity. At this elevation you're max load is [the max load of the player]% and you're currently holding [the current load of the player]%, but this item requires an additional [the load of the noun]%.";
 		else:
@@ -236,12 +243,38 @@ Instead of taking:
 	else if the player is carrying a backpack:
 		say "You must be *wearing* a backpack to hold items.";
 	else:
-		say "You must be wearing a backpack to hold items.".
+		say "You must be wearing a backpack to hold items.".]
+Instead of taking:
+	if the current load of the player plus the load of the noun is greater than the max load of the player:
+		say "You're at max capacity. At this elevation you're max load is [the max load of the player]% and you're currently holding [the current load of the player]%, but this item requires an additional [the load of the noun]%.";
+	else:
+		increase the current load of the player by the load of the noun;
+		continue the action;
 		
 [dropping]
-Instead of dropping:
-	decrease the current load of the player by the load of the noun;
-	continue the action.
+Carry out dropping:
+	decrease the current load of the player by the load of the noun.
+	
+[using]
+Using is an action applying to one visible thing.
+Understand "use [something]" as using.
+Check using:
+	if the noun is a first aid kit or the noun is a chemical warming pack:
+		continue the action;
+	else:
+		say "You can't use that... but you can use a first aid kit and a chemical warming pack." instead.
+Carry out using:
+	if the noun is a first aid kit:
+		heal the player by the replenishment health of the noun;
+		say "Your health has increased a bit.";
+	else if the noun is a chemical warming pack:
+		if the player is in Camp3 or the player is in Summit:
+			energize the player by the replenishment energy of the noun;
+			energize the player by the warming boost of the noun;
+			say "Your energy has increased a bit, plus a warming boost since it's so cold up here. [the replenishment energy of the noun] [the warming boost of the noun]";
+		else:
+			energize the player by the replenishment energy of the noun;
+			say "Your energy has increased a bit (but it's not cold enough here for the warming boost)."
 	
 [Instead of taking:
 	[if the noun is a backpack:
@@ -271,39 +304,39 @@ Carry out entering a tent:
 After entering a tent:
 	say "You enter the tent. It's nice and cozy inside.";
 
-[healing]
+[_healing]
 To heal (person - a person) by (number - a number):
 	if the health of the person plus the number is greater than 100:
 		now the energy of the person is 101;
 	else:
 		increase the health of the person by the number.
 
-[hurting]
+[_hurting]
 To hurt (person - a person) by (number - a number):
 	if the health of the person minus the number is less than 0:
 		now the health of the person is 0;
 	else:
 		decrease the health of the person by the number.
 
-[energizing]
+[_energizing]
 To energize (person - a person) by (number - a number):
 	if the energy of the person plus the number is greater than 100:
 		now the energy of the person is 101;
 	else:
-		increase the energy of the person by the number.
+		increase the energy of the person by the number;
 		
-[tiring]
+[_tiring]
 To tire (person - a person) by (number - a number):
 	if the energy of the person minus the number is less than 0:
 		now the energy of the person is 0;
 	else:
 		decrease the energy of the person by the number.
 		
-[send]
+[_send]
 To send (person - a person) to (place - a room):
 	[basecamp -> Camp1]
 	if the player is in Basecamp and the place is Camp1:
-		if the player is wearing a backpack and the backpack contains food and the backpack contains a water bottle and the backpack contains a tent and the backpack contains an ice axe:
+		if the player is carrying food and the player is carrying a water bottle and the player is carrying a tent and the player is carrying an ice axe:
 			say "Are you sure you want to go to [the place]? This hike will require 20 energy.";
 			if the player consents:
 				say "You make the trek to [the place].";
@@ -329,14 +362,24 @@ To send (person - a person) to (place - a room):
 		else:
 			say "Are you sure you want to go to [the place]? A glacier is blocking the path and there's no way around it... climbing it is risky and will require 30 energy.";
 			if the player consents:
-				say "You make the climb to [the place].";
+				say "You begin the climb to [the place].
+				
+				";
 				[if the player is carrying xyz it helps... additionalChanceOfSurvivingObstacle]
 				if a random chance of 3 in 3 succeeds:
-					say "You climb, climb, and climb. Your limbs want to give up - but you won't let them. Aside from a few near death experiences, you finally make it to the top!";
+					say "You climb, climb, and climb.
+					
+					Your limbs want to give up - but you won't let them.
+					
+					Aside from a few near death experiences, you finally make it to the top!";
 					tire the player by 30;
 					move the player to the place;
 				else:
-					say "You climb, climb, and climb. Your limbs want to give up – but you won't let them. However, the ice will! You slip and take a HARD fall.";
+					say "You climb, climb, and climb.
+					
+					Your limbs want to give up – but you won't let them. However, the ice will!
+					
+					You slip and take a HARD fall.";
 					tire the player by 30;
 					hurt the player by 40;
 			else:
@@ -413,15 +456,30 @@ Instead of going:
 		say "There's no time for wandering around. We have a mountain to tackle - from South to North and then North to South.".
 			
 [eating (from http://inform7.com/book/RB_9_1.html)]
-Check eating something:
+Instead of eating something:			
 	if the noun is not food:
-		say "[The noun] might be edible, but it's not what you'd consider really food." instead;
-	otherwise if the energy of the player is 100:
-		say "You're not hungry right now." instead.
+		say "[The noun] might be edible, but you probably don't want test it out now." instead;
+	else if the energy of the player is 100:
+		say "You're not hungry right now.";
+	else:
+		if the player is carrying the noun:
+			decrease the current load of the player by the load of the noun;
+		continue the action.
 Carry out eating something:
 	energize the player by the replenishment energy of the noun.
 After eating something:
-	say "Your energy has increased to [energy of the player]%.".
+	say "Your energy has increased a bit.".
+	
+[Instead of eating something:
+	if the noun is not food:
+		say "[The noun] might be edible, but you probably don't want test it out now." instead;
+	else if the energy of the player is 100:
+		say "You're not hungry right now." instead;
+	else:
+		say "(first taking [the noun])"
+		energize the player by the replenishment energy of the noun;
+		now the noun is nowhere;
+		say "Your energy has increased a bit.".]
 
 
 
@@ -461,10 +519,10 @@ Every turn:
 			hurt the player by healthDeclineOfTurn;
 			if the health of the player is 0:
 				end the story saying "You have died :(";
-		if the player is wearing a backpack or the player is carrying a backpack:
-			say "Current Load: [the current load of the player]%    Max Load: [the max load of the player]%            Energy: [the energy of the player]%    Health: [the health of the player]%";
-		else:
-			say "Current Load: 0%    Max Load: 0%            Energy: [the energy of the player]%    Health: [the health of the player]%";
+		[if the player is wearing a backpack or the player is carrying a backpack:]
+		say "Current Load: [the current load of the player]%    Max Load: [the max load of the player]%            Energy: [the energy of the player]%    Health: [the health of the player]%";
+		[else:
+			say "Current Load: 0%    Max Load: 0%            Energy: [the energy of the player]%    Health: [the health of the player]%";]
 		if the energy of the player is less than 21 and playerWarnedAboutLowEnergy is false:
 			say "
 			
