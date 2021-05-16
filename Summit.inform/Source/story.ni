@@ -12,6 +12,7 @@ The goingByNameWasCanceledDuringTurn is initially false.
 The additionalChanceOfSurvivingObstacle is initially 0.
 The playerWarnedAboutLowEnergy is initially false.
 The playerWarnedAboutLowHealth is initially false.
+The playerHasSleptAtCurrentLocation is initially true.
 
 
 
@@ -97,21 +98,21 @@ The description of climbing gear is usually "[The noun] will decrease your chanc
 [ice axe]
 An ice axe is a climbing gear.
 The load of an ice axe is 15.
-The climbing boost of an ice axe is 30.
+The climbing boost of an ice axe is 15.
 Understand "axe" as the ice axe.
 The description of an ice axe is "VERY pointy. [The noun] will decrease your chance of falling while climbing a glacier by [the climbing boost of the noun]%. It requires [the load of the noun]% of your load capacity.".
 
 [crampons]
 crampons are a climbing gear.
 The load of crampons is 15.
-The climbing boost of crampons is 30.
+The climbing boost of crampons is 15.
 Understand "boots" as crampons.
 The description of crampons is "Spiky boots. [The noun] will decrease your chance of falling while climbing a glacier by [the climbing boost of the noun]%. It requires [the load of the noun]% of your load capacity.".
 
 [rope]
 A rope is a climbing gear.
 The load of a rope is 10.
-The climbing boost of a rope is 20.
+The climbing boost of a rope is 15.
 The description of a rope is "A way to secure yourself. [The noun] will decrease your chance of falling while climbing a glacier by [the climbing boost of the noun]%. It requires [the load of the noun]% of your load capacity.".
 
 
@@ -203,7 +204,7 @@ The description of a backpack is "A large, but lightweight and well-supported ba
 [basecamp chest]
 There is a chest called 'Basecamp Chest'.
 'Basecamp Chest' is in Basecamp.
-'Basecamp Chest' contains an orange, a cliff bar, beef jerky, chicken jerky, a water bottle, an ice axe, crampons, a rope, a tent, a chemical warming pack.
+'Basecamp Chest' contains an orange, a cliff bar, beef jerky, chicken jerky, a water bottle, an ice axe, crampons, a rope, a tent, a chemical warming pack, a first aid kit.
 
 
 
@@ -226,7 +227,7 @@ To sip (the water bottle - a water bottle):
 	If the remaining sips of the water bottle is greater than 0:
 		decrease the remaining sips of the water bottle by 1;
 		energize the player by the replenishment energy of the water bottle;
-		say "Aaaaahh! Very refreshing.";
+		say "Aaaaahh! Very refreshing. Only [the remaining sips of the water bottle] sips left.";
 	else:
 		say "Ooops... you're all out of slush.".
 
@@ -275,34 +276,71 @@ Carry out using:
 		else:
 			energize the player by the replenishment energy of the noun;
 			say "Your energy has increased a bit (but it's not cold enough here for the warming boost)."
-	
-[Instead of taking:
-	[if the noun is a backpack:
-		if the player is wearing a backpack:
-			say "You've already got that on silly.";
-		else:
-			say "You're holding the backpack but not yet wearing it.";]
-	if the player is not wearing a backpack or the player is not carrying a backpack, and the noun is not a backpack:
-		say "Try taking things once you're wearing a backpack. You can hold a lot more that way, but remember, the higher up you go the less you'll be able to carry.";
+			
+[sleeping]
+[Check sleeping:
+	if playerHasSleptAtCurrentLocation is true:
+		say "There's no more time for rest, you've got some hiking to do." instead;
+	else if the player is not in a tent:
+		say "You'd freeze to death if you slept out here - find some shelter." instead;
 	else:
 		continue the action.]
+Instead of sleeping:
+	if playerHasSleptAtCurrentLocation is true:
+		say "There's no more time for rest, you've got some hiking to do.";
+	else if the player is not in a tent:
+		say "Sleeping outdoors is a bad idea - it's freezing! You should find shelter but it's totally up to you. Are you sure you want to sleep here?";
+		if the player consents:
+			now playerHasSleptAtCurrentLocation is true;
+			say "You close your eyes... and suffer through a freezing night. Finally, you awake the next day at the crack of dawn.
+			
+			";
+			[no tent]
+			if the player is in Camp3 or the player is in Summit:
+				say "You got a tiny amount of shut-eye, but it's soooo cold at this altitude that you shivered all night. You're 30% more tired than before.";
+				tire the player by 30;
+			else:
+				say "You got some sleep, but it's pretty cold even down here. You're 10% more tired than before.";
+				tire the player by 10;
+		else:
+			do nothing;
+	[in tent]
+	else:
+		now playerHasSleptAtCurrentLocation is true;
+		say "You close your eyes... and awake the next day at the crack of dawn.
 		
-[wearing]
-[Instead of wearing:
-	if the noun is a backpack:
-		if the player is wearing a backpack:
-			say "You've already got that on silly.";
+		";
+		if the player is in Camp3 or the player is in Summit:
+			energize the player by the replenishment energy of a tent;
+			energize the player by the warming boost of a tent;
+			say "You're rested and ready to continue, plus the tent kept you nice and ''warm''. Your energy has increased by [the replenishment energy of a tent]% plus a warming boost of [the warming boost of a tent]% since it's so cold up here.";
 		else:
-			now the player is wearing the noun;
-			say "You're now wearing a backpack.";
+			energize the player by the replenishment energy of a tent;
+			say "You're rested and ready to continue. Your energy has increased by [the replenishment energy of a tent]%.";
+			
+
+	[now playerHasSleptAtCurrentLocation is true;
+	if the player is in Camp3 or the player is in Summit:
+		if the player is in a tent:
+			energize the player by the replenishment energy of a tent;
+			energize the player by the warming boost of a tent;
+			say "You're rested and ready to continue, plus the tent kept you nice and ''warm''. Your energy has increased by [the replenishment energy of a tent]% plus a warming boost of [the warming boost of a tent]% since it's so cold up here.";
+		else:
+			say "You got a tiny amount of shut-eye, but it's soooo cold at this altitude that you shivered all night. You're 30% more tired than before.";
+			tire the player by 30;
 	else:
-		continue the action.]
+		if the player is in a tent:
+			energize the player by the replenishment energy of a tent;
+			say "You're rested and ready to continue. Your energy has increased by [the replenishment energy of a tent]%.";
+		else:
+			say "You got some sleep, but it's pretty cold even down here. You're a 10% more tired than before.";
+			tire the player by 10;]
 
 [entering]
 Carry out entering a tent:
 	energize the player by the replenishment energy of the noun.
 After entering a tent:
-	say "You enter the tent. It's nice and cozy inside.";
+	say "You enter the tent. It's nice and cozy inside.";	
 
 [_healing]
 To heal (person - a person) by (number - a number):
@@ -334,12 +372,15 @@ To tire (person - a person) by (number - a number):
 		
 [_send]
 To send (person - a person) to (place - a room):
+	if playerHasSleptAtCurrentLocation is false:
+		say "It's dark out, and you need some sleep before making another trek." instead;
 	[basecamp -> Camp1]
-	if the player is in Basecamp and the place is Camp1:
+	else if the player is in Basecamp and the place is Camp1:
+		now playerHasSleptAtCurrentLocation is false;
 		if the player is carrying food and the player is carrying a water bottle and the player is carrying a tent and the player is carrying an ice axe:
 			say "Are you sure you want to go to [the place]? This hike will require 20 energy.";
 			if the player consents:
-				say "You make the trek to [the place].";
+				say "You make the trek to [the place] and arrive late in the evening.";
 				tire the player by 20;
 				move the player to the place;
 			else:
@@ -348,52 +389,99 @@ To send (person - a person) to (place - a room):
 			say "Before heading up to Camp1, you should at least bring food, water, shelter, and an ice axe.";
 	[basecamp <- Camp1]
 	else if the player is in Camp1 and the place is Basecamp:
+		now playerHasSleptAtCurrentLocation is false;
 		say "Are you sure you want to go to [the place]? This hike will require 15 energy.";
 		if the player consents:
-			say "You make the trek to [the place].";
+			say "You make the trek to [the place] and arrive late in the evening.";
 			tire the player by 15;
 			move the player to the place;
 		else:
 			do nothing instead;
 	[Camp1 -> Camp2]
 	else if the player is in Camp1 and the place is Camp2:
+		now playerHasSleptAtCurrentLocation is false;
 		if the current load of the player is greater than the maxLoad of Camp2:
 			say "You won't be able to carry all that up there because your max load at Camp2 is only [the maxLoad of Camp2]%. You have to drop some items (though you can always come back for them).";
 		else:
-			say "Are you sure you want to go to [the place]? A glacier is blocking the path and there's no way around it... climbing it is risky and will require 30 energy.";
+			now the additionalChanceOfSurvivingObstacle is 0;
+			if the player is carrying an ice axe:
+				increase the additionalChanceOfSurvivingObstacle by the climbing boost of an ice axe;
+			if the player is carrying crampons:
+				increase the additionalChanceOfSurvivingObstacle by the climbing boost of crampons;
+			if the player is carrying rope:
+				increase the additionalChanceOfSurvivingObstacle by the climbing boost of rope;
+			say "Are you sure you want to go to [the place]? A glacier is blocking the path and there's no way around it... there's a 35% chance of success without a fall, plus the total [the additionalChanceOfSurvivingObstacle]% bonus of your climbing gear. The climb will require 30 energy and a fall would reduce your health by 40%.";
 			if the player consents:
 				say "You begin the climb to [the place].
 				
 				";
-				[if the player is carrying xyz it helps... additionalChanceOfSurvivingObstacle]
-				if a random chance of 3 in 3 succeeds:
+				if a random chance of 35 plus the additionalChanceOfSurvivingObstacle in 100 succeeds:
 					say "You climb, climb, and climb.
 					
 					Your limbs want to give up - but you won't let them.
 					
-					Aside from a few near death experiences, you finally make it to the top!";
+					Aside from a few near death experiences, you finally make it to the top!
+					
+					By now, it's night.
+					";
 					tire the player by 30;
 					move the player to the place;
 				else:
 					say "You climb, climb, and climb.
-					
+				
 					Your limbs want to give up – but you won't let them. However, the ice will!
+				
+					You slip and take a HARD fall.
 					
-					You slip and take a HARD fall.";
+					It's dark out and you're in the same place as before, except this time, you're badly hurt.
+					";
 					tire the player by 30;
 					hurt the player by 40;
 			else:
 				do nothing instead;
 	[Camp1 <- Camp2]
 	else if the player is in Camp2 and the place is Camp1:
-		say "Are you sure you want to go to [the place]? This hike will require 25 energy.";
+		now playerHasSleptAtCurrentLocation is false;
+		now the additionalChanceOfSurvivingObstacle is 0;
+		if the player is carrying an ice axe:
+			increase the additionalChanceOfSurvivingObstacle by the climbing boost of an ice axe;
+		if the player is carrying crampons:
+			increase the additionalChanceOfSurvivingObstacle by the climbing boost of crampons;
+		if the player is carrying rope:
+			increase the additionalChanceOfSurvivingObstacle by the climbing boost of rope;
+		say "Are you sure you want to go to [the place]? You'll have to climb back down the glacier... there's a 35% chance of success without a fall, plus the total [the additionalChanceOfSurvivingObstacle]% bonus of your climbing gear. The climb will require 30 energy and a fall would reduce your health by 40%.";
+		if the player consents:
+			say "You begin the climb to [the place].
+			
+			
+			";
+			if a random chance of 35 plus the additionalChanceOfSurvivingObstacle in 100 succeeds:
+				say "You climb, climb, and climb.
+					
+				Your limbs want to give up - but you won't let them.
+					
+				Aside from a few near death experiences, you finally make it to the top!";
+				tire the player by 30;
+				move the player to the place;
+			else:
+				say "You climb, climb, and climb.
+					
+				Your limbs want to give up – but you won't let them. However, the ice will!
+					
+				You slip and take a HARD fall.";
+				tire the player by 30;
+				hurt the player by 40;
+		else:
+			do nothing instead;
+		[say "Are you sure you want to go to [the place]? This hike will require 25 energy.";
 		if the player consents:
 			say "You make the trek to [the place].";
 			move the player to the place;
 		else:
-			do nothing instead;
+			do nothing instead;]
 	[Camp2 -> Camp3]
 	else if the player is in Camp2 and the place is Camp3:
+		now playerHasSleptAtCurrentLocation is false;
 		if the current load of the player is greater than the maxLoad of Camp3:
 			say "You won't be able to carry all that up there because your max load at Camp3 is only [the maxLoad of Camp3]%. You have to drop some items (though you can always come back for them).";
 		else:
@@ -405,6 +493,7 @@ To send (person - a person) to (place - a room):
 				do nothing instead;
 	[Camp2 <- Camp3]
 	else if the player is in Camp3 and the place is Camp2:
+		now playerHasSleptAtCurrentLocation is false;
 		say "Are you sure you want to go to [the place]? This hike will require 25 energy.";
 		if the player consents:
 			say "You make the trek to [the place].";
@@ -413,6 +502,7 @@ To send (person - a person) to (place - a room):
 			do nothing instead;
 	[Camp3 -> Summit]
 	else if the player is in Camp3 and the place is Summit:
+		now playerHasSleptAtCurrentLocation is false;
 		if the current load of the player is greater than the maxLoad of Summit:
 			say "You won't be able to carry all that up there because your max load at the Summit is a mere [the maxLoad of Summit]%. You have to drop some items (though you can always come back for them).";
 		else:
@@ -487,7 +577,7 @@ After eating something:
 
 [----- events -----]
 Every turn:
-	if the goingByNameWasCanceledDuringTurn is true:
+	if the goingByNameWasCanceledDuringTurn	 is true:
 		now goingByNameWasCanceledDuringTurn is false;
 	else:
 		now energyDeclineOfTurn is 0;
