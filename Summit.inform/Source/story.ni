@@ -122,7 +122,7 @@ A first aid kit is thing.
 The load of a first aid kit is 15.
 A first aid kit has a number called the replenishment health.
 The replenishment health of a first aid kit is always 30.
-The description of climbing gear is usually "[The noun] will instantly heal you by [the replenishment health of the noun]%. It requires [the load of the noun]% of your load capacity.".
+The description of a first aid kit is usually "[The noun] will instantly heal you by [the replenishment health of the noun]%. It requires [the load of the noun]% of your load capacity.".
 
 
 
@@ -139,7 +139,7 @@ A tent has a number called the warming boost.
 The warming boost of a tent is 10.
 A tent has a number called the replenishment energy.
 The replenishment energy of a tent is 20.
-The description of climbing gear is usually "Sleeping in [The noun] will give you [the replenishment energy of the noun]% energy replenishment, and a [the warming boost of the noun]% warming boost energy at higher altitudes. It requires [the load of the noun]% of your load capacity.".
+The description of a tent is usually "Sleeping in [The noun] will give you [the replenishment energy of the noun]% energy replenishment, and a [the warming boost of the noun]% warming boost energy at higher altitudes. It requires [the load of the noun]% of your load capacity.".
 
 [chemical warming pack]
 A chemical warming pack is a thing.
@@ -148,7 +148,7 @@ A chemical warming pack has a number called the warming boost.
 The warming boost of a chemical warming pack is 25.
 A chemical warming pack has a number called the replenishment energy.
 The replenishment energy of a chemical warming pack is 5.
-The description of climbing gear is usually "Using [The noun] will give you [the replenishment energy of the noun]% energy replenishment, and a [the warming boost of the noun]% warming boost energy at higher altitudes. It requires [the load of the noun]% of your load capacity.".
+The description of a chemical warming pack is usually "Using [The noun] will give you [the replenishment energy of the noun]% energy replenishment, and a [the warming boost of the noun]% warming boost energy at higher altitudes. It requires [the load of the noun]% of your load capacity.".
 
 
 
@@ -232,6 +232,7 @@ To sip (the water bottle - a water bottle):
 		say "Ooops... you're all out of slush.".
 
 [taking]
+[NOTE: attempted implementing a backpack system but it became overly complicated for the scope of this game]
 [Instead of taking:
 	if the player is carrying nothing:
 		continue the action;
@@ -340,12 +341,12 @@ Instead of sleeping:
 Carry out entering a tent:
 	energize the player by the replenishment energy of the noun.
 After entering a tent:
-	say "You enter the tent. It's nice and cozy inside.";	
+	say "You enter the tent. It's nice and cozy inside.";
 
 [_healing]
 To heal (person - a person) by (number - a number):
 	if the health of the person plus the number is greater than 100:
-		now the energy of the person is 101;
+		now the energy of the person is 100;
 	else:
 		increase the health of the person by the number.
 
@@ -359,7 +360,7 @@ To hurt (person - a person) by (number - a number):
 [_energizing]
 To energize (person - a person) by (number - a number):
 	if the energy of the person plus the number is greater than 100:
-		now the energy of the person is 101;
+		now the energy of the person is 100;
 	else:
 		increase the energy of the person by the number;
 		
@@ -481,7 +482,7 @@ To send (person - a person) to (place - a room):
 			do nothing instead;]
 	[Camp2 -> Camp3]
 	else if the player is in Camp2 and the place is Camp3:
-		now playerHasSleptAtCurrentLocation is false;
+		[no sleeping at camp3]
 		if the current load of the player is greater than the maxLoad of Camp3:
 			say "You won't be able to carry all that up there because your max load at Camp3 is only [the maxLoad of Camp3]%. You have to drop some items (though you can always come back for them).";
 		else:
@@ -502,16 +503,25 @@ To send (person - a person) to (place - a room):
 			do nothing instead;
 	[Camp3 -> Summit]
 	else if the player is in Camp3 and the place is Summit:
-		now playerHasSleptAtCurrentLocation is false;
+		[no sleeping at summit]
 		if the current load of the player is greater than the maxLoad of Summit:
 			say "You won't be able to carry all that up there because your max load at the Summit is a mere [the maxLoad of Summit]%. You have to drop some items (though you can always come back for them).";
 		else:
 			say "Are you sure you want to go to [the place]? This hike will require 40 energy.";
 			if the player consents:
-				say "You make the trek to [the place].";
+				say "Finally, you continue the trek to the [the place].";
 				move the player to the place;
 			else:
 				do nothing instead;
+	[Camp3 <- Summit]
+	else if the player is in Summit and the place is Camp3:
+		[no sleeping at summit]
+		say "Are you sure you want to go to back to [the place]? This hike will require 40 energy.";
+		if the player consents:
+			say "Making it to the Summit is only half the battle - you begin the descent.";
+			move the player to the place;
+		else:
+			do nothing instead;
 	
 [going by name]
 [NOTE: without 'going by name', player can only use cardinal directions]
@@ -542,6 +552,8 @@ Instead of going:
 	[Camp3 -> Summit]
 	else if the player is in Camp3 and the noun is North:
 		send the player to Summit;
+	else if the player is in a tent:
+		say "You bump into the tent wall... Maybe you should get out of the tent before traveling.";
 	else:
 		say "There's no time for wandering around. We have a mountain to tackle - from South to North and then North to South.".
 			
@@ -559,17 +571,6 @@ Carry out eating something:
 	energize the player by the replenishment energy of the noun.
 After eating something:
 	say "Your energy has increased a bit.".
-	
-[Instead of eating something:
-	if the noun is not food:
-		say "[The noun] might be edible, but you probably don't want test it out now." instead;
-	else if the energy of the player is 100:
-		say "You're not hungry right now." instead;
-	else:
-		say "(first taking [the noun])"
-		energize the player by the replenishment energy of the noun;
-		now the noun is nowhere;
-		say "Your energy has increased a bit.".]
 
 
 
@@ -616,7 +617,7 @@ Every turn:
 		if the energy of the player is less than 21 and playerWarnedAboutLowEnergy is false:
 			say "
 			
-			Your energy is low! You need food, water, or rest.";
+			Your energy is low! You need food, water, or rest (probably all three).";
 			now playerWarnedAboutLowEnergy is true;
 		if the health of the player is less than 21 and playerWarnedAboutLowHealth is false:
 			say "
@@ -629,7 +630,6 @@ Every turn:
 
 
 [----- locations -----]
-
 Basecamp is a room.
 The energyDecline of Basecamp is 1.
 The healthDeclineWithNoEnergy of Basecamp is 11.
