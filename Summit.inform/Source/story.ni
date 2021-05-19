@@ -2,8 +2,10 @@
 
 The display banner rule is listed before the when play begins stage rule in the startup rules.
 
-[When play begins:
-	say "Energy: [the energy of the player]%  Health: [the health of the player]%".]
+Figure of map is the file "map540.png".
+
+When play begins:
+	say "After months of daydreaming, you finally arrive at Mt. Aconcagua – ready to summit your first mountain. Reach the top, collect your bragging rights, and come back down ALIVE.".
 	
 [----- state -----]
 The energyDeclineOfTurn is initially 0.
@@ -13,6 +15,12 @@ The additionalChanceOfSurvivingObstacle is initially 0.
 The playerWarnedAboutLowEnergy is initially false.
 The playerWarnedAboutLowHealth is initially false.
 The playerHasSleptAtCurrentLocation is initially true.
+The playerHasReachedSummit is initially false.
+The reachedBasecamp is initially false.
+The reachedCamp1 is initially false.
+The reachedCamp2 is initially false.
+The reachedCamp3 is initially false.
+The reachedSummit is initially false.
 
 
 
@@ -64,18 +72,18 @@ The replenishment energy of an orange is 6.
 
 [cliff bar]
 A cliff bar is food.
-The load of a cliff bar is 6.
+The load of a cliff bar is 5.
 The replenishment energy of a cliff bar is 15.
 
 [beef jerky]
 beef jerky is food.
 The load of beef jerky is 10.
-The replenishment energy of beef jerky is 25.
+The replenishment energy of beef jerky is 35.
 
 [chicken jerky]
 chicken jerky is food.
 The load of chicken jerky is 10.
-The replenishment energy of chicken jerky is 25.
+The replenishment energy of chicken jerky is 35.
 
 [water bottle]
 A water bottle is a thing.
@@ -83,7 +91,7 @@ The load of a water bottle is 15.
 A water bottle has a number called remaining sips.
 The remaining sips of a water bottle is usually 7.
 A water bottle has a number called replenishment energy.
-The replenishment energy of a water bottle is 10.
+The replenishment energy of a water bottle is 15.
 Understand "water" as the water bottle.
 The description of a water bottle is "Each sip replenishes [the replenishment energy of the water bottle]% of your energy and there are [the remaining sips of the water bottle] sips remaining. Carrying this insulated bottle requires [the load of the water bottle]% of your load capacity.".
 
@@ -112,14 +120,14 @@ The description of crampons is "Spiky boots. [The noun] will decrease your chanc
 [rope]
 A rope is a climbing gear.
 The load of a rope is 10.
-The climbing boost of a rope is 15.
+The climbing boost of a rope is 10.
 The description of a rope is "A way to secure yourself. [The noun] will decrease your chance of falling while climbing a glacier by [the climbing boost of the noun]%. It requires [the load of the noun]% of your load capacity.".
 
 
 
 [first aid kit]
 A first aid kit is thing.
-The load of a first aid kit is 15.
+The load of a first aid kit is 10.
 A first aid kit has a number called the replenishment health.
 The replenishment health of a first aid kit is always 30.
 The description of a first aid kit is usually "[The noun] will instantly heal you by [the replenishment health of the noun]%. It requires [the load of the noun]% of your load capacity.".
@@ -210,6 +218,13 @@ There is a chest called 'Basecamp Chest'.
 
 [----- actions -----]
 
+[map]
+Map is an action applying to nothing.
+Understand "map" as map.
+Carry out map:
+	say "You pull out the crumpled map.";
+	display figure of map.
+
 [diagnosing]
 Diagnosing is an action applying to one visible thing.
 Understand "diagnose [something]" as diagnosing.
@@ -247,7 +262,9 @@ To sip (the water bottle - a water bottle):
 	else:
 		say "You must be wearing a backpack to hold items.".]
 Instead of taking:
-	if the current load of the player plus the load of the noun is greater than the max load of the player:
+	if the noun is a tent and the player is in the tent:
+		say "You have to get out of the tent before taking it.";
+	else if the current load of the player plus the load of the noun is greater than the max load of the player:
 		say "You're at max capacity. At this elevation you're max load is [the max load of the player]% and you're currently holding [the current load of the player]%, but this item requires an additional [the load of the noun]%.";
 	else:
 		increase the current load of the player by the load of the noun;
@@ -338,8 +355,8 @@ Instead of sleeping:
 			tire the player by 10;]
 
 [entering]
-Carry out entering a tent:
-	energize the player by the replenishment energy of the noun.
+[Carry out entering a tent:
+	energize the player by the replenishment energy of the noun.]
 After entering a tent:
 	say "You enter the tent. It's nice and cozy inside.";
 
@@ -377,30 +394,37 @@ To send (person - a person) to (place - a room):
 		say "It's dark out, and you need some sleep before making another trek." instead;
 	[basecamp -> Camp1]
 	else if the player is in Basecamp and the place is Camp1:
-		now playerHasSleptAtCurrentLocation is false;
 		if the player is carrying food and the player is carrying a water bottle and the player is carrying a tent and the player is carrying an ice axe:
 			say "Are you sure you want to go to [the place]? This hike will require 20 energy.";
 			if the player consents:
 				say "You make the trek to [the place] and arrive late in the evening.";
 				tire the player by 20;
 				move the player to the place;
+				now playerHasSleptAtCurrentLocation is false;
 			else:
 				do nothing instead;
 		else:
 			say "Before heading up to Camp1, you should at least bring food, water, shelter, and an ice axe.";
 	[basecamp <- Camp1]
 	else if the player is in Camp1 and the place is Basecamp:
-		now playerHasSleptAtCurrentLocation is false;
 		say "Are you sure you want to go to [the place]? This hike will require 15 energy.";
 		if the player consents:
-			say "You make the trek to [the place] and arrive late in the evening.";
-			tire the player by 15;
-			move the player to the place;
+			if the playerHasReachedSummit is true:
+				tire the player by 15;
+				say "Weak legged and freezing, you make the last trek of the journey and arrive late in the evening.";
+				move the player to the place;
+				end the story saying "Congratulations! You made it to the Summit AND survived to tell the tale.";
+			else:
+				say "You make the trek to [the place] and arrive late in the evening.";
+				tire the player by 15;
+				move the player to the place;
+				now playerHasSleptAtCurrentLocation is false;
 		else:
 			do nothing instead;
 	[Camp1 -> Camp2]
 	else if the player is in Camp1 and the place is Camp2:
-		now playerHasSleptAtCurrentLocation is false;
+		if the player is not carrying an ice axe:
+			say "You'll at least need an ice axe to climb the glacier up ahead.";
 		if the current load of the player is greater than the maxLoad of Camp2:
 			say "You won't be able to carry all that up there because your max load at Camp2 is only [the maxLoad of Camp2]%. You have to drop some items (though you can always come back for them).";
 		else:
@@ -411,12 +435,12 @@ To send (person - a person) to (place - a room):
 				increase the additionalChanceOfSurvivingObstacle by the climbing boost of crampons;
 			if the player is carrying rope:
 				increase the additionalChanceOfSurvivingObstacle by the climbing boost of rope;
-			say "Are you sure you want to go to [the place]? A glacier is blocking the path and there's no way around it... there's a 35% chance of success without a fall, plus the total [the additionalChanceOfSurvivingObstacle]% bonus of your climbing gear. The climb will require 30 energy and a fall would reduce your health by 40%.";
+			say "Are you sure you want to go to [the place]? A glacier is blocking the path and there's no way around it... there's a 60% chance of success without a fall, plus the total [the additionalChanceOfSurvivingObstacle]% bonus of your climbing gear. The climb will require 30% energy and a fall would reduce your health by 40%.";
 			if the player consents:
 				say "You begin the climb to [the place].
 				
 				";
-				if a random chance of 35 plus the additionalChanceOfSurvivingObstacle in 100 succeeds:
+				if a random chance of 60 plus the additionalChanceOfSurvivingObstacle in 100 succeeds:
 					say "You climb, climb, and climb.
 					
 					Your limbs want to give up - but you won't let them.
@@ -425,8 +449,9 @@ To send (person - a person) to (place - a room):
 					
 					By now, it's night.
 					";
-					tire the player by 30;
+					tire the player by 30;					
 					move the player to the place;
+					now playerHasSleptAtCurrentLocation is false;
 				else:
 					say "You climb, climb, and climb.
 				
@@ -442,7 +467,6 @@ To send (person - a person) to (place - a room):
 				do nothing instead;
 	[Camp1 <- Camp2]
 	else if the player is in Camp2 and the place is Camp1:
-		now playerHasSleptAtCurrentLocation is false;
 		now the additionalChanceOfSurvivingObstacle is 0;
 		if the player is carrying an ice axe:
 			increase the additionalChanceOfSurvivingObstacle by the climbing boost of an ice axe;
@@ -450,20 +474,21 @@ To send (person - a person) to (place - a room):
 			increase the additionalChanceOfSurvivingObstacle by the climbing boost of crampons;
 		if the player is carrying rope:
 			increase the additionalChanceOfSurvivingObstacle by the climbing boost of rope;
-		say "Are you sure you want to go to [the place]? You'll have to climb back down the glacier... there's a 35% chance of success without a fall, plus the total [the additionalChanceOfSurvivingObstacle]% bonus of your climbing gear. The climb will require 30 energy and a fall would reduce your health by 40%.";
+		say "Are you sure you want to go to [the place]? You'll have to climb back down the glacier... there's a 35% chance of success without a fall, plus the total [the additionalChanceOfSurvivingObstacle]% bonus of your climbing gear. The climb will require 30% energy and a fall would reduce your health by 40%.";
 		if the player consents:
 			say "You begin the climb to [the place].
 			
 			
 			";
-			if a random chance of 35 plus the additionalChanceOfSurvivingObstacle in 100 succeeds:
+			if a random chance of 60 plus the additionalChanceOfSurvivingObstacle in 100 succeeds:
 				say "You climb, climb, and climb.
 					
 				Your limbs want to give up - but you won't let them.
 					
-				Aside from a few near death experiences, you finally make it to the top!";
+				Aside from a few near death experiences, you finally make it down!";
 				tire the player by 30;
 				move the player to the place;
+				now playerHasSleptAtCurrentLocation is false;
 			else:
 				say "You climb, climb, and climb.
 					
@@ -489,6 +514,7 @@ To send (person - a person) to (place - a room):
 			say "Are you sure you want to go to [the place]? This hike will require 30 energy.";
 			if the player consents:
 				say "You make the trek to [the place].";
+				tire the player by 30;
 				move the player to the place;
 			else:
 				do nothing instead;
@@ -498,6 +524,7 @@ To send (person - a person) to (place - a room):
 		say "Are you sure you want to go to [the place]? This hike will require 25 energy.";
 		if the player consents:
 			say "You make the trek to [the place].";
+			tire the player by 25;
 			move the player to the place;
 		else:
 			do nothing instead;
@@ -511,6 +538,8 @@ To send (person - a person) to (place - a room):
 			if the player consents:
 				say "Finally, you continue the trek to the [the place].";
 				move the player to the place;
+				tire the player by 40;
+				now the playerHasReachedSummit is true;
 			else:
 				do nothing instead;
 	[Camp3 <- Summit]
@@ -519,6 +548,7 @@ To send (person - a person) to (place - a room):
 		say "Are you sure you want to go to back to [the place]? This hike will require 40 energy.";
 		if the player consents:
 			say "Making it to the Summit is only half the battle - you begin the descent.";
+			tire the player by 35;
 			move the player to the place;
 		else:
 			do nothing instead;
@@ -552,6 +582,9 @@ Instead of going:
 	[Camp3 -> Summit]
 	else if the player is in Camp3 and the noun is North:
 		send the player to Summit;
+	[Camp3 <- Summit]
+	else if the player is in Summit and the noun is South:
+		send the player to Camp3;
 	else if the player is in a tent:
 		say "You bump into the tent wall... Maybe you should get out of the tent before traveling.";
 	else:
@@ -564,8 +597,7 @@ Instead of eating something:
 	else if the energy of the player is 100:
 		say "You're not hungry right now.";
 	else:
-		if the player is carrying the noun:
-			decrease the current load of the player by the load of the noun;
+		decrease the current load of the player by the load of the noun;
 		continue the action.
 Carry out eating something:
 	energize the player by the replenishment energy of the noun.
@@ -591,18 +623,38 @@ Every turn:
 		if the player is in Camp1:
 			increase energyDeclineOfTurn by the energyDecline of Camp1;
 			increase healthDeclineOfTurn by the healthDeclineWithNoEnergy of Camp1;
+			if reachedCamp1 is false:
+				say "Immediately ahead, you see the glacier blocking your path... good thing you brought climbing gear... right?
+				
+				";
+				now reachedCamp1 is true;
 		[Camp2]
 		if the player is in Camp2:
 			increase energyDeclineOfTurn by the energyDecline of Camp2;
 			increase healthDeclineOfTurn by the healthDeclineWithNoEnergy of Camp2;
+			if reachedCamp2 is false:
+				say "Beware, you cannot camp in Camp3.
+				
+				";
+				now reachedCamp2 is true;
 		[Camp3]
 		if the player is in Camp3:
 			increase energyDeclineOfTurn by the energyDecline of Camp3;
 			increase healthDeclineOfTurn by the healthDeclineWithNoEnergy of Camp3;
+			if reachedCamp3 is false:
+				say "Don't give up, you're almost there!
+				
+				";
+				now reachedCamp3 is true;
 		[Summit]
 		if the player is in Summit:
 			increase energyDeclineOfTurn by the energyDecline of Summit;
 			increase healthDeclineOfTurn by the healthDeclineWithNoEnergy of Summit;
+			if reachedSummit is false:
+				say "Woohoooo! You made it to the summit alive! well mostly... Now, you just have to do it all over again in reverse ;)
+				
+				";
+				now reachedSummit is true;
 		tire the player by energyDeclineOfTurn;
 		[if no energy, hurt the player]
 		if the energy of the player is 0:
@@ -636,6 +688,8 @@ The healthDeclineWithNoEnergy of Basecamp is 11.
 The maxLoad of Basecamp is 100.
 The description of Basecamp is "Plaza Argentina Base Camp (4200m) for Mt. Aconcagua. The trail up to the summit begins here. It's a dangerous, but non-technical climb. There is a collection of ragtag temporary structures that form the Guardia’s seasonal presence at the less popular Polish Route base camp. Brightly colored tents dot the plateau. The Polish Glacier looms in the distance, and a swift stream - the headwaters of the Vacas river flow from its base. There is an outhouse on the edge of camp. The weekly helicopter retrieval of the 50 gallon drum of waste is a highlight and one of the only things that marks civilized time.
 
+Use your map to help you decide what supplies you should take on your ascent.
+
 --- Down here, each action requires [the energyDecline of Basecamp] energy point. And without energy, your health will decrease [the healthDeclineWithNoEnergy of Basecamp] points per action. ---".
 South of Basecamp is nowhere.
 
@@ -643,7 +697,7 @@ Camp1 is a room.
 The energyDecline of Camp1 is 2.
 The healthDeclineWithNoEnergy of Camp1 is 12.
 The maxLoad of Camp1 is 100.
-The description of Camp1 is "Camp 1 (4900m)  At 16,076 feet above sea level, Camp 1 is higher than most people have every climbed. It is higher than any peak in North America. It is just 1000 feet lower than Everest Base Camp in Nepal. Camp 1 is located at the top of the trail on a plateau. Aconcagua is not visible from here, but its sister, Mt. Ameguino’s snowy peak looms above you. The camp is located several hundred meters from the glacial stream. There is no outhouse (you must bury your waste, away from any area that could contaminate the stream). Carrying water from the stream to boil for hydration and cooking is required. You can only carry part of what you need to Camp 1 on your first trip, so you must plan carefully. Climbers stay one night in Camp 1, then return to Base Camp for more supplies. You have to bring the bare essentials - tent, sleeping bag, camp stove, food. You don’t immediately need ice climbing equipment - mountaineering boots, crampons, ice ax, harness, helmet, rope. But you will eventually need to bring up to Camp 1, as it’s needed at higher elevations. 
+The description of Camp1 is "Camp 1 (4900m)  At 16,076 feet above sea level, Camp 1 is higher than most people have every climbed. It is higher than any peak in North America. It is just 1000 feet lower than Everest Base Camp in Nepal. Camp 1 is located at the top of the trail on a plateau. Aconcagua is not visible from here, but its sister, Mt. Ameguino’s snowy peak looms above you. The camp is located several hundred meters from the glacial stream. There is no outhouse (you must bury your waste, away from any area that could contaminate the stream).
 
 --- Here, each action requires [the energyDecline of Camp1] energy points. And without energy, your health will decrease [the healthDeclineWithNoEnergy of Camp1] points per action. ---".
 Camp1 is north of Basecamp.
@@ -654,7 +708,7 @@ Camp2 is a room.
 The energyDecline of Camp2 is 5.
 The healthDeclineWithNoEnergy of Camp2 is 15.
 The maxLoad of Camp2 is 75.
-The description of Camp2 is "Camp 2 (5850m) Camp 2 is located at the base of visible portions of the Polish Glacier. Below, it retreats under the moraine, but above you, it appears as a both a wall and a river of blue-green ice and white pillars. These are Los Penitentes, statues in ice guarding the glacier. From here, you can see all the way to the Valle de Vacas. Just like with portages from Plaza Argentina to Camp 1, you must make several trips over 3 days from Camp 1 to Camp 2 to haul the rest of your gear. You leave almost nothing behind at Camp 1, except for an emergency shelter tent and some provisions. You have the option of stashing extra water and saving some of your favorite food for the descent. 
+The description of Camp2 is "Camp 2 (5850m) Camp 2 is located just above most of the Polish Glacier. Below, it appears as a both a wall and a river of blue-green ice and white pillars. These are Los Penitentes, statues in ice guarding the glacier. From here, you can see all the way to the Valle de Vacas. Up here it's noticeably colder and much windier, but still manageable.
 
 --- At this altitude, each action requires [the energyDecline of Camp2] energy points. And without energy, your health will decrease [the healthDeclineWithNoEnergy of Camp2] points per action. ---".
 Camp2 is north of Camp1.
@@ -663,7 +717,7 @@ Camp3 is a room.
 The energyDecline of Camp3 is 10.
 The healthDeclineWithNoEnergy of Camp3 is 20.
 The maxLoad of Camp3 is 40.
-The description of Camp3 is "Camp 3 (400m elevation gain). No one stays in Camp 3 for long. It is above the 'kill zone' where lack of oxygen and hypoxia can cause rapid deterioration in your mental and physical state. If you decide to use Camp 3, it’s only for a quick stop over so you can be up well before sunrise to attempt the summit. You take only the bare essentials: shelter, food, safety equipment, and your climbing gear. You leave your tent and sleeping bag behind, but you won’t be staying at Camp 3 after the summit. You will stop to retrieve your equipment, if you survive the summit, but that’s it. If you choose to summit from Camp 3, you will have less climbing to do, but you will also be weaker from the extra time at altitude. 
+The description of Camp3 is "Camp 3 (400m elevation gain). No one stays in Camp 3 for long. It is above the 'kill zone' where lack of oxygen and hypoxia can cause rapid deterioration in your mental and physical state. If you decide to use Camp 3, it’s only for a quick stop over so you can be fueled to attempt the summit. You usually only take the bare essentials: a source of energy and warmth. If you survive the summit, you will only stop back here to retrieve your equipment – but that's a BIG if. 
 
 --- Way up here, each action requires [the energyDecline of Camp3] energy points. And without energy, your health will decrease [the healthDeclineWithNoEnergy of Camp3] points per action. ---".
 Camp3 is north of Camp2.

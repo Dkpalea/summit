@@ -15,6 +15,7 @@ storyfile "/Users/Dkpalea/Desktop/Inform7/summit/Summit.inform/Build/output.ulx"
 ifiction "/Users/Dkpalea/Desktop/Inform7/summit/Summit.inform/Metadata.iFiction" include
 cover "/Applications/Inform.app/Contents/Resources/Internal/Miscellany/Cover.jpg"
 picture 1 "/Applications/Inform.app/Contents/Resources/Internal/Miscellany/Cover.jpg"
+picture 3 "/Users/Dkpalea/Desktop/Inform7/summit/Summit.materials/Figures/map540.png"
 
 ! Placeholder variables
 
